@@ -80,7 +80,7 @@ The default for failure-mode is :no-error"))
 (defmethod seize ((l simple-lock))
   (check-for-mylock l *current-process*)
   (do ()
-      ((setf-if (lock-owner l) nill *current-process*))
+      ((setf-if (lock-owner l) nil *current-process*))
     (process-wait "Seizing lock"
                   #'(lambda () (null (lock-owner l))))))
 

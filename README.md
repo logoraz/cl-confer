@@ -1,4 +1,4 @@
-# CL Configuration Environment Resource (`:confer`)
+# CL Conf*iguration* E*nvironment* R*esource* (`:confer`)
 
 
 <p align="center">

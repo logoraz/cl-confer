@@ -25,7 +25,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 qlot=$XDG_DATA_HOME/qlot/bin
 
 #### Lem Source (local install)
-lem=$XDG_DATA_HOME/common-lisp/lem
+lem=$XDG_DATA_HOME/common-lisp/custom/lem
 
 # Update PATH
 export PATH="$qlot:$lem:$PATH"

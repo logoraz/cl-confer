@@ -1,7 +1,9 @@
 alexandria, ghcr.io/ocicl/alexandria@sha256:e433c2e076ed3bcf8641b97b00192680db2201d305efac9293539dee88c7fbf7, alexandria-20240503-8514d8e/alexandria.asd
 bordeaux-threads, ghcr.io/ocicl/bordeaux-threads@sha256:bbb32afe3987e102149cc019f4f7366a05f7a37d1503f5f86a27745e671c320a, bordeaux-threads-0.9.4/bordeaux-threads.asd
+cl-interpol, ghcr.io/ocicl/cl-interpol@sha256:bf02bce744361792150a04310b24a623596b99190a9f85a1c2ebf35f12b2288c, cl-interpol-2.0.7/cl-interpol.asd
 cl-ppcre, ghcr.io/ocicl/cl-ppcre@sha256:584907e0683621973579f397115945ef73e9d5b7afa77fae7cacecb3ad272f89, cl-ppcre-20240503-80fb19d/cl-ppcre.asd
 cl-ppcre-unicode, ghcr.io/ocicl/cl-ppcre@sha256:584907e0683621973579f397115945ef73e9d5b7afa77fae7cacecb3ad272f89, cl-ppcre-20240503-80fb19d/cl-ppcre-unicode.asd
+cl-unicode, ghcr.io/ocicl/cl-unicode@sha256:d98f12c1271fb3c1812a27d64dfbe95b0bc5bcfd545b71b8101874e61270b120, cl-unicode-20240503-07e7ff5/cl-unicode.asd
 closer-mop, ghcr.io/ocicl/closer-mop@sha256:4172af145e68606b0ffee2e9f6fa672618b1c73cf5fc50d9a6a2af7c287adc95, closer-mop-20250331-626d7fd/closer-mop.asd
 dref, ghcr.io/ocicl/mgl-pax-bootstrap@sha256:dd3a535d8130ddd7ad639b9bad7ac5e5edfe61b1ae4c39acb9b3ebeb352a9f32, mgl-pax-20250308-835a033/dref/dref.asd
 dref-test, ghcr.io/ocicl/mgl-pax-bootstrap@sha256:dd3a535d8130ddd7ad639b9bad7ac5e5edfe61b1ae4c39acb9b3ebeb352a9f32, mgl-pax-20250308-835a033/dref/dref-test.asd
@@ -14,6 +16,8 @@ fare-quasiquote-test, ghcr.io/ocicl/fare-quasiquote-readtable@sha256:0a692a32f79
 fare-utils, ghcr.io/ocicl/fare-utils@sha256:8d96adf0d03ec8f3613ec56d5da94f18c82329df20d029c730e7c3745aee89e3, fare-utils-20240503-2f9c48a/fare-utils.asd
 fare-utils-test, ghcr.io/ocicl/fare-utils@sha256:8d96adf0d03ec8f3613ec56d5da94f18c82329df20d029c730e7c3745aee89e3, fare-utils-20240503-2f9c48a/fare-utils-test.asd
 fiveam, ghcr.io/ocicl/fiveam@sha256:e283043dc8d31e8df2b214465cf5a06ea07bdbea10e600a40e17aaf9518226ac, fiveam-20240928-e43d6c8/fiveam.asd
+flexi-streams, ghcr.io/ocicl/flexi-streams@sha256:95005b06a8a95c82780c75ead53810bcb273d07fcf5fe76b527f1856df9923f2, flexi-streams-20240503-4951d57/flexi-streams.asd
+flexi-streams-test, ghcr.io/ocicl/flexi-streams@sha256:95005b06a8a95c82780c75ead53810bcb273d07fcf5fe76b527f1856df9923f2, flexi-streams-20240503-4951d57/flexi-streams-test.asd
 global-vars, ghcr.io/ocicl/global-vars@sha256:d197e871c9c9abc4bf31b1186f5fd28f0ca848ebe2e9dddf2d82ecee01dbdc65, global-vars-20240503-c749f32/global-vars.asd
 global-vars-test, ghcr.io/ocicl/global-vars@sha256:d197e871c9c9abc4bf31b1186f5fd28f0ca848ebe2e9dddf2d82ecee01dbdc65, global-vars-20240503-c749f32/global-vars-test.asd
 inferior-shell, ghcr.io/ocicl/inferior-shell@sha256:7e0f0ddd1bf490f3caabc421acfd184c57759d8623918f0dadce54526e76a52d, inferior-shell-20240503-1edd2e4/inferior-shell.asd
@@ -54,5 +58,7 @@ trivial-cltl2, ghcr.io/ocicl/trivial-cltl2@sha256:69470b4f6469314799074b9d944050
 trivial-features, ghcr.io/ocicl/trivial-features@sha256:e278e24d39060fc7d3715531b16ddd9ab7f93f22ade53e436c0b86dbae3aa065, trivial-features-1.0/trivial-features.asd
 trivial-features-tests, ghcr.io/ocicl/trivial-features@sha256:e278e24d39060fc7d3715531b16ddd9ab7f93f22ade53e436c0b86dbae3aa065, trivial-features-1.0/trivial-features-tests.asd
 trivial-garbage, ghcr.io/ocicl/trivial-garbage@sha256:a85dcf4110ad60ae9f6c70970acceb2bf12402ce5326891643d35506059afb1d, trivial-garbage-20240503-3474f64/trivial-garbage.asd
+trivial-gray-streams, ghcr.io/ocicl/trivial-gray-streams@sha256:d0cc9fb73876100ee60647524f98b5b22566fa1c3a985d79548b0d2b228f8b51, trivial-gray-streams-20240503-a7ead68/trivial-gray-streams.asd
+trivial-gray-streams-test, ghcr.io/ocicl/trivial-gray-streams@sha256:d0cc9fb73876100ee60647524f98b5b22566fa1c3a985d79548b0d2b228f8b51, trivial-gray-streams-20240503-a7ead68/trivial-gray-streams-test.asd
 type-i, ghcr.io/ocicl/type-i@sha256:de5c3e7f7b72409c5ec49885eea8c6fe2e02def2846cf97f70c1c21f21a1567c, type-i-20240503-4407a68/type-i.asd
 type-i.test, ghcr.io/ocicl/type-i@sha256:de5c3e7f7b72409c5ec49885eea8c6fe2e02def2846cf97f70c1c21f21a1567c, type-i-20240503-4407a68/type-i.test.asd
