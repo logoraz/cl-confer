@@ -15,6 +15,7 @@
                :confer/core/all
                :confer/libraries/juego-clos/all
                :confer/libraries/cl-gexp/all
+               :confer/libraries/website/all
                :confer/libraries/chembook/all
                :confer/libraries/learncl/all)
   :in-order-to ((test-op (test-op :confer-test))))
@@ -27,6 +28,7 @@
 
 ;; Libraries
 (register-system-packages "confer/libraries/learncl/all"    '(:learncl))
+(register-system-packages "confer/libraries/website/all"    '(:web))
 (register-system-packages "confer/libraries/chembook/all"   '(:chembook))
 (register-system-packages "confer/libraries/cl-gexp/all"    '(:gexp))
 (register-system-packages "confer/libraries/juego-clos/all" '(:juego))
