@@ -68,3 +68,19 @@
   "Example: SEXP as a comment... 
 (list :bar 1 :baz 2 :qux 3) => ((:BAR 1 :BAZ 2 :QUX 3) 1 2 3)"
   (list rest bar baz qux))
+
+;; Advanced package examples
+(defpackage :clj-coll-test
+  (:use :cl :clj-coll :clj-arrows :fiveam)
+  (:shadowing-import-from :fiveam :run!) ;supersedes clj-coll:run!
+  (:shadowing-import-from :clj-coll . #.(clj-coll:cl-symbol-names))
+  (:export :run-tests)
+  (:documentation "Tests for the :clj-coll package."))
+
+(defpackage :spacy
+  (:use :cl :clj-arrows :py4cl2-cffi)
+  (:local-nicknames (:jzon :com.inuoe.jzon))
+  (:import-from #:alexandria #:if-let #:when-let)
+  ;; We want all the clj-coll symbols except for shadows of cons, list, list*.
+  (:import-from :clj-coll . #.(clj-coll:non-cl-symbol-names))
+  (:shadowing-import-from :clj-coll . #.(clj-coll:cl-symbol-names :exclude '(:cons :list :list*)))

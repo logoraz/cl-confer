@@ -4,8 +4,7 @@
   (:import-from :cl-ppcre
                 #:regex-replace)
   (:import-from :local-time
-                #:now
-                #:format-timstring)
+                #:now)
   (:export #:test-fn))
 (in-package :confer/libraries/cl-gexp/gexp)
 
