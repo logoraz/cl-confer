@@ -29,6 +29,12 @@ unset rc
 ## Aliases
 alias ll='ls -l'
 alias la='ls -la'
+# smooth transition from sudo to doas
+alias sudo='doas'
+# to replace sudo entirely perform this command
+# ln -s $(which doas) /usr/bin/sudo
+
+
 
 ## Custom Prompt
 
