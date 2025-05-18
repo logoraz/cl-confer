@@ -35,7 +35,6 @@ alias sudo='doas'
 # ln -s $(which doas) /usr/bin/sudo
 
 
-
 ## Custom Prompt
 
 
