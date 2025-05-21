@@ -5,7 +5,7 @@
 
 ;; Present the following code to your LISP system at startup, either
 ;; by adding it to your implementation's startup file
-;; (~/.sbclrc, ~/.eclrc, ~/.abclrc, ~/.clinit.cl, or ~/.roswell/init.lisp)
+;; (~/.sbclrc, ~/.eclrc, ~/.clasprc, ~/.abclrc, ~/.clinit.cl, or ~/.roswell/init.lisp)
 ;; or overriding it completely on the command line
 ;; (eg. sbcl --userinit init.lisp)
 
