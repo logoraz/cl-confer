@@ -1,6 +1,8 @@
 (defpackage :confer/core/confer
-  (:use :cl)
-  (:export #:simple-test))
+  (:use :cl
+        :confer/libraries/utils/base)
+  (:export #:simple-test
+           #:test-utils))
 (in-package :confer/core/confer)
 
 
@@ -11,3 +13,6 @@
   (loop :for i :from 0 :below n
         :collect (list (format nil "list ~A" i)
                        (/ i n))))
+
+(defun test-utils ()
+  (concat "string-1" " " "string-2"))

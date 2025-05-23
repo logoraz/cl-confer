@@ -13,8 +13,9 @@
                :cl-ppcre
                :confer/setup
                :confer/core/all
+               :confer/libraries/utils/all
                :confer/libraries/juego-clos/all
-               :confer/libraries/cl-gexp/all
+               :confer/libraries/cl-bexp/all
                :confer/libraries/website/all
                :confer/libraries/chembook/all
                :confer/libraries/learncl/all)
@@ -27,10 +28,11 @@
 (register-system-packages "confer/core/all" '(:confer))
 
 ;; Libraries
+(register-system-packages "confer/libraries/utils/all"      '(:utils))
 (register-system-packages "confer/libraries/learncl/all"    '(:learncl))
 (register-system-packages "confer/libraries/website/all"    '(:web))
 (register-system-packages "confer/libraries/chembook/all"   '(:chembook))
-(register-system-packages "confer/libraries/cl-gexp/all"    '(:gexp))
+(register-system-packages "confer/libraries/cl-bexp/all"    '(:bexp))
 (register-system-packages "confer/libraries/juego-clos/all" '(:juego))
 
 ;; Externals
