@@ -1,8 +1,8 @@
-(defpackage :confer-test/tests/base
-  (:use :cl
-        :fiveam)
+(defpackage #:confer-test/tests/base
+  (:use #:cl
+        #:fiveam)
   (:export #:root-suite))
-(in-package :confer-test/tests/base)
+(in-package #:confer-test/tests/base)
 
 ;; https://common-lisp-libraries.readthedocs.io/fiveam/
 ;; https://github.com/lispci/fiveam/blob/master/t/example.lisp

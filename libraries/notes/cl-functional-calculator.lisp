@@ -1,5 +1,5 @@
-(defpackage :confer/notes/cl-functional-calculator 
-  (:use :cl)
+(defpackage #:confer/notes/cl-functional-calculator 
+  (:use #:cl)
   (:export #:make-calculator
            #:add!
            #:subtract!
@@ -7,7 +7,7 @@
            #:divide!
            #:clear!
            #:get-result))
-(in-package :confer/notes/cl-functional-calculator)
+(in-package #:confer/notes/cl-functional-calculator)
 
 ;; See: https://gigamonkeys.com/book/functions
 

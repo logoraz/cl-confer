@@ -1,7 +1,7 @@
-(defpackage :confer/libraries/chembook/chembook 
-  (:use :cl)
+(defpackage #:confer/libraries/chembook/chembook 
+  (:use #:cl)
   (:export #:chem-db))
-(in-package :confer/libraries/chembook/chembook)
+(in-package #:confer/libraries/chembook/chembook)
 
 (defun chem-db (&optional (n 11))
   "Simple 'Mock' database for testing."

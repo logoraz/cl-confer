@@ -1,12 +1,12 @@
-(defpackage :confer/libraries/juego-clos/main
-  (:use :cl)
+(defpackage #:confer/libraries/juego-clos/main
+  (:use #:cl)
   (:export #:*hans-drives-and-pays?*
            #:*invoke-tariffs?*
            #:make-cool-hans
            #:make-biatcho-hans
            #:make-goofball-hans
            #:make-erk))
-(in-package :confer/libraries/juego-clos/main)
+(in-package #:confer/libraries/juego-clos/main)
 
 
 (defvar *hans-drives-and-pays?* "YES: Hans happily drives and Pays for ERKS meal!"

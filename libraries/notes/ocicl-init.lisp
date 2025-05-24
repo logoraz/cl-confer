@@ -1,8 +1,8 @@
 ;;;; OCICL Init/Setup
 ;;; This file generated via $ ocicl setup > ocicl-init.lisp
-(defpackage :confer/notes/ocicl-init
-  (:use :cl))
-(in-package :confer/notes/ocicl-init)
+(defpackage #:confer/notes/ocicl-init
+  (:use #:cl))
+(in-package #:confer/notes/ocicl-init)
 
 ;; Preserving existing /home/logoraz/.local/share/ocicl/ocicl-registry.cfg
 ;; Use setup's --force option to override.

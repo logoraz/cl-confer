@@ -1,8 +1,8 @@
-(defpackage :confer/libraries/utils/base
-  (:use :cl)
-  (:import-from :cl-interpol)
+(defpackage #:confer/libraries/utils/base
+  (:use #:cl)
+  (:import-from #:cl-interpol)
   (:export #:concat))
-(in-package :confer/libraries/utils/base)
+(in-package #:confer/libraries/utils/base)
 
 
 (defun concat (&rest strings)

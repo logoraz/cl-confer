@@ -1,12 +1,12 @@
-(defpackage :confer/libraries/cl-bexp/bexp
-  (:use :cl)
-  (:import-from :cl-interpol)
-  (:import-from :cl-ppcre
+(defpackage #:confer/libraries/cl-bexp/bexp
+  (:use #:cl)
+  (:import-from #:cl-interpol)
+  (:import-from #:cl-ppcre
                 #:regex-replace)
-  (:import-from :local-time
+  (:import-from #:local-time
                 #:now)
   (:export #:test-fn))
-(in-package :confer/libraries/cl-bexp/bexp)
+(in-package #:confer/libraries/cl-bexp/bexp)
 
 ;;; Notes:
 ;;;

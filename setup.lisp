@@ -1,12 +1,12 @@
 ;;;; Common Lisp Environment Setup
 
-(defpackage :confer/setup
-  (:nicknames :setup)
-  (:use :cl)
-  (:import-from :uiop)
-  (:import-from :sb-posix)
+(defpackage #:confer/setup
+  (:nicknames #:setup)
+  (:use #:cl)
+  (:import-from #:uiop)
+  (:import-from #:sb-posix)
   (:export #:symlinkp))
-(in-package :confer/setup)
+(in-package #:confer/setup)
 
 #+(or)
 (eval-when (:compile-toplevel :load-toplevel :execute)

@@ -1,9 +1,9 @@
 ;;;; Notes/Examples from Object-Oriented Programming in Common Lisp
 ;;;; by Sonya E. Keene
-(defpackage :confer/libraries/notes/clos-locks
-  (:use :cl)
+(defpackage #:confer/libraries/notes/clos-locks
+  (:use #:cl)
   (:export ))
-(in-package :confer/libraries/notest/clos-locks)
+(in-package #:confer/libraries/notest/clos-locks)
 
 
 ;;; Classes

@@ -1,9 +1,9 @@
-(defpackage :confer/core/confer
-  (:use :cl
-        :confer/libraries/utils/base)
+(defpackage #:confer/core/confer
+  (:use #:cl
+        #:confer/libraries/utils/base)
   (:export #:simple-test
            #:test-utils))
-(in-package :confer/core/confer)
+(in-package #:confer/core/confer)
 
 
 (defconstant +cl-path+ (uiop:xdg-config-home #p"common-lisp"))

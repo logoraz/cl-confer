@@ -1,8 +1,8 @@
-(defpackage :confer/libraries/website/web
-  (:use :cl)
+(defpackage #:confer/libraries/website/web
+  (:use #:cl)
   (:export #:chem-db)
-  (:import-from :cl-ppcre)
-  (:import-from :local-time)
-  (:import-from :clog))
-(in-package :confer/libraries/website/web)
+  #+(or) (:import-from #:cl-ppcre)
+  #+(or) (:import-from #:local-time)
+  #+(or) (:import-from #:clog))
+(in-package #:confer/libraries/website/web)
 

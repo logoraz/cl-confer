@@ -26,7 +26,7 @@ The test(s) can be executed, in the project directory, via:
 
 ```lisp
 
-* (asdf:test-system :confer-test)
+* (asdf:test-system 'confer-test)
 
 ```
 
@@ -38,7 +38,7 @@ learning tool (a cons cell visual aid) in this project as follows:
 
 ```lisp
 
-(asdf:load-system :confer)
+(asdf:load-system 'confer)
 ;; or
 ;; (asdf:load-system :confr) ; system alias
 ;;...
