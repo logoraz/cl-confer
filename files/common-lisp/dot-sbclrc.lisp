@@ -1,11 +1,12 @@
 ;;;; dot-sbclrc.lisp -> .sbclrc - SBCL Initialization File
 
 ;;; Enable Advanced SBCL Features
-(ignore-errors (require :asdf)
-               (require :uiop)
-               (require :sb-aclrepl)
-               (require :sb-rotate-byte)
-               (require :sb-cltl2))
+(handler-bind ((warning #'muffle-warning))
+  (require :asdf)
+  (require :uiop)
+  (require :sb-aclrepl)
+  (require :sb-rotate-byte)
+  (require :sb-cltl2))
 
 (when (find-package 'sb-aclrepl)
   (push :aclrepl cl:*features*))
@@ -33,7 +34,7 @@
   (sb-aclrepl:alias ("quit" 0 "Quit REPL") () (quit)))
 
 ;; Enable Colorized REPL
-;; (setf *print-pretty* t)
+(setf *print-pretty* t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -61,7 +62,8 @@
      (load ocicl-runtime)))
  (asdf:initialize-source-registry
   (list :source-registry
-        ;; Keyword :tree needed to find self-vendored non-available ocicl systems in ocicl/
+        ;; Keyword :tree needed to find self-vendored non-available ocicl
+        ;; systems in ocicl/
         (list :tree (uiop:getcwd))
         :inherit-configuration)))
 

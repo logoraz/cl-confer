@@ -1,15 +1,15 @@
-(defpackage :aoforce-docs/generator
+(defpackage :sojrn-docs/generator
   (:nicknames #:docs)
   (:use :cl
-        :aoforce)
+        :sojrn)
   (:import-from #:3bmd)
   (:import-from #:3bmd-code-blocks)
   (:import-from #:colorize)
   (:import-from #:print-licenses)
   (:export #:build-docs)
-  (:documentation "Documentation system for aoforce"))
+  (:documentation "Documentation system for sojrn"))
 
-(in-package :aoforce-docs/generator)
+(in-package :sojrn-docs/generator)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -25,7 +25,7 @@
                          :if-does-not-exist :create)
       (3bmd:parse-and-print-to-stream in out))))
 
-(defun generate-api-md (output-file &key (packages '(:aoforce)))
+(defun generate-api-md (output-file &key (packages '(:sojrn)))
   "Generate an API reference in Markdown by extracting docstrings
 from the given PACKAGES and writing them to OUTPUT-FILE."
   (with-open-file (out output-file
@@ -57,14 +57,14 @@ from the given PACKAGES and writing them to OUTPUT-FILE."
                           sym cdoc))))))))))
 
 (defun build-docs (&key keep)
-  "Documentation builder for aoforce."
-  (let* ((root   (asdf:system-source-directory :aoforce-docs))
+  "Documentation builder for sojrn."
+  (let* ((root   (asdf:system-source-directory :sojrn-docs))
          (manual (merge-pathnames "docs/manual/" root))
          (outdir (merge-pathnames "out/" manual))
          (sections '("intro.md" "usage.md" "api.md" "internals.md")))
     (ensure-directories-exist manual)
     (generate-api-md (merge-pathnames "api.md" manual)
-                     :packages '(:aoforce))
+                     :packages '(:sojrn))
     (ensure-directories-exist outdir)
     (dolist (f sections)
       (render-md-file

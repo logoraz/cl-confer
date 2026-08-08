@@ -1,7 +1,7 @@
-(defpackage :aoforce/setup
+(defpackage :sojrn/setup
   (:use :cl
-        :aoforce/core/config-manager
-        :aoforce/core/persistence)
+        :sojrn/core/config-manager
+        :sojrn/core/persistence)
   ;; Basic Setup
   (:export #:outline
            #:deploy)
@@ -15,7 +15,7 @@
            #:snapshots)
   (:documentation "Setup script to scaffold CL configuration/environment."))
 
-(in-package :aoforce/setup)
+(in-package :sojrn/setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -24,28 +24,30 @@
 (defparameter *config-mgr* (make-instance 'config-manager))
 
 ;; Shell Environment
-;; 1.  ~/Work/aoforce/files/bash/dot-bashrc.sh --> ~/.bashrc
+;; 1.  ~/Work/sojrn/files/bash/dot-bashrc.sh --> ~/.bashrc
+#+(or)
 (add-config *config-mgr*
             "Bash RC"
-            "~/Work/aoforce/files/bash/dot-bashrc.sh"
+            "~/Work/sojrn/files/bash/dot-bashrc.sh"
             "~/.bashrc"
             :spec :symlink
             :type :file)
 
-;; 2.  ~/Work/aoforce/files/bash/dot-bash_profile.sh --> ~/.bash_profile
+;; 2.  ~/Work/sojrn/files/bash/dot-bash_profile.sh --> ~/.bash_profile
+#+(or)
 (add-config *config-mgr*
             "Bash Profile"
-            "~/Work/aoforce/files/bash/dot-bash_profile.sh"
+            "~/Work/sojrn/files/bash/dot-bash_profile.sh"
             "~/.bash_profile"
             :spec :symlink
             :type :file)
 
 ;; Common Lisp Environment
-;; 3.  ~/Work/aoforce/files/common-lisp/dot-sbclrc.lisp --> ~/.sbclrc
+;; 3.  ~/Work/sojrn/files/common-lisp/dot-sbclrc.lisp --> ~/.sbclrc
 ;; Already handled in bootstrap... though adding here for completion
 (add-config *config-mgr*
             "SBCL Config"
-            "~/Work/aoforce/files/common-lisp/dot-sbclrc.lisp"
+            "~/Work/sojrn/files/common-lisp/dot-sbclrc.lisp"
             "~/.sbclrc"
             :spec :symlink
             :type :file)
@@ -77,7 +79,8 @@
 
 (defun deploy-and-record (&key (notes nil))
   "Deploy configurations and record to the database.
-Optional NOTES can describe this deployment (e.g., 'Initial setup', 'Added emacs config').
+Optional NOTES can describe this deployment
+(e.g., 'Initial setup', 'Added emacs config').
 
 Example:
   (deploy-and-record :notes \"Initial workstation setup\")"

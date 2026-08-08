@@ -1,10 +1,10 @@
-(defsystem "aoforce-docs"
+(defsystem "sojrn-docs"
   :description "Documentation framework"
   :class :package-inferred-system
   :pathname "docs"
-  :depends-on ("aoforce-docs/generator")
+  :depends-on ("sojrn-docs/generator")
   :perform (build-op (o c)
-                     (symbol-call 'aoforce-docs/generator 'build-docs)))
+                     (symbol-call 'sojrn-docs/generator 'build-docs)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

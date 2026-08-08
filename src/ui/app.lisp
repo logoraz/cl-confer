@@ -1,4 +1,4 @@
-(defpackage :aoforce/ui/app
+(defpackage :sojrn/ui/app
   (:use :cl)
   (:import-from :gtk
                 #:application
@@ -13,25 +13,25 @@
                 #:signal-connect)
   (:import-from :gio
                 #:application-run)
-  (:export #:aoforce-app)
+  (:export #:sojrn-app)
   (:documentation "Main renderer application package."))
 
-(in-package :aoforce/ui/app)
+(in-package :sojrn/ui/app)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Define GTK4 Application
 
-(defun aoforce-app ()
+(defun sojrn-app ()
   "Create and run a minimal GTK4 application window with a close button."
   (let ((app (make-instance 'application
-                             :application-id "org.aoforce.app"
+                             :application-id "org.sojrn.app"
                              :flags 0)))
     (signal-connect app "activate"
       (lambda (application)
         (let* ((window (make-instance 'application-window
                                        :application application
-                                       :title "aoforce"
+                                       :title "sojrn"
                                        :default-width 400
                                        :default-height 300))
                (box (make-instance 'box

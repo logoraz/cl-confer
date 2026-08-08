@@ -1,11 +1,10 @@
-(defpackage :aoforce/utils/syntax
+(defpackage :sojrn/utils/syntax
   (:use :cl)
-  (:local-nicknames (#:it :iterate))
   (:export #:concat
            #:nlet)
   (:documentation "Syntactic Language Extensions."))
 
-(in-package :aoforce/utils/syntax)
+(in-package :sojrn/utils/syntax)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -23,7 +22,7 @@
   `(labels ((,name ,(mapcar #'car bindings) ,@body))
      (,name ,@(mapcar #'cadr bindings))))
 
-#+nil ;example
+#+(or) ;example
 (nlet fact ((n 5) (acc 1))
       (if (zerop n)
           acc

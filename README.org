@@ -1,0 +1,157 @@
+#+title: SOJRN - Common Lisp dotfile/config deployment
+#+author: logoraz
+#+date: 2026-08-06
+#+options: toc:nil
+#+startup: overview
+#+startup: inlineimages
+:meta:
+:end:
+
+
+#+html: <p align="center"> <img src="assets/cl-icon.svg" width="200"/> </p>
+
+
+A Lisp-native dotfile/config deployment tool for keeping your Common Lisp tooling
+consistent across Linux and Windows.  Declarative source-to-target config mapping
+(add-config) with symlink/copy specs, backed by a cl-dbi-tracked SQL persistence
+layer, plus a GTK4 GUI frontend. Unlike a pure stateless symlink-farm tool, it
+tracks what's been deployed where, over time, in an actual database rather than
+just inferring state from the filesystem each run.
+
+** Build, Testing, & Configuration
+
+  Dependencies (see Guix manifest.scm for reference):
+  - SBCL
+  - [[https://github.com/ocicl/ocicl][ocicl]]
+  - gtk
+  - pango
+  - cairo
+  - gdk-pixbuf
+  - graphene
+  - libffi
+  - pkg-config
+  - gcc-toolchain
+  - libfixposix
+
+
+[[https://github.com/ocicl/ocicl][ocicl]] is a modern approach for Common Lisp
+Systems Management. It even supports vendored sources, which this project
+currently needs, i.e. =cl-cffi-gtk4= and =cl-cffi-gdk-pixbuf=, all other CL
+dependencies are handled by ocicl.
+
+
+*** Build & Test (WIP: Executable & Document Generation):
+
+First install sbcl and run =bootstrap.lisp=, which setup up a symlink for the
+specially configured sbcl configuration file (=.sbclrc=) tailored for this
+project. Next install =ocicl=. Vendoring of =cl-cffi-gtk4= and =cl-cffi-gdk-pixbuf= are
+handled in =bootstrap.lisp=
+
+#+begin_src lisp
+
+  ;; Build System
+  (asdf:load-system :sojrn)
+
+  ;; Test System
+  (asdf:test-system :sojrn-tests)
+
+  ;; Generate Documentation (WIP)
+  (asdf:load-system :sojrn-docs)
+
+  ;; Create Executable (WIP)
+  (asdf:make :sojrn/executable)
+
+  ;; Build Libraries/Extensions (WIP)
+  (asdf:load-system :sojrn/libraries)
+
+#+end_src
+
+
+*** Configuration Manager
+
+The config-manager declaratively maps source files to deployment targets via
+add-config — name, source, target, plus a :spec (symlink or copy) and :type. It
+validates the source exists before accepting the entry, warning rather than
+failing if it doesn't. persistence.lisp backs it with a cl-dbi database, so
+deployment state is tracked over time rather than re-inferred from the filesystem
+each run. setup.lisp holds the actual per-machine declarations — the manager
+itself is generic, setup.lisp is the policy.
+
+First edit/modify =sojrn/src/setup.lisp= (=:setup=) and then deploy your
+configuration as follows:
+
+#+begin_src lisp
+
+  ;; cd to ~/Work/sojrn/ (or location of this repo)
+  (asdf:load-system :sojrn)
+  ;; First visualize your deployment plan
+  (sojrn:outline)
+  ;; Deploy!
+  (sojrn:deploy)
+
+#+end_src
+
+
+*** GTK4 UI (WIP)
+
+Currently working on establishing a gtk4 frontend using =cl-cffi-gtk4=.
+
+Note: ocicl will install most of the dependencies, however, currently =cl-cffi-gtk4=
+is not building upstream, so it needs to be vendored in =ocicl/= manually along with
+=cl-cffi-gdk-pixbuf=.
+
+Then you can run the currently simple UI as follows:
+
+#+begin_src lisp
+
+  ;; Re-run to finish building successfully
+  (asdf:load-system :sojrn)
+  (sojrn:main)
+
+#+end_src
+
+
+
+*** Play & Learn
+
+As a fun exercise of incorporating a library, I adapted the =SDRAW= and =DTRACE= tools from
+the book 
+[[https://www.cs.cmu.edu/~dst/LispBook/][Common Lisp: A Gentle Introduction to Symbolic Computation]].
+This is staged in the system/library =learn-cl=. For example, you can run the =sdraw=
+learning tool (a cons cell visual aid) in this project as follows:
+
+#+begin_src lisp
+
+  (sojrn:sdraw '(This (is a (test!))))
+
+  ;; =>
+  ;; [*|*]--->[*|*]--->NIL
+  ;;  |        |
+  ;;  v        v
+  ;; THIS     [*|*]--->[*|*]--->[*|*]--->NIL
+  ;;           |        |        |
+  ;;           v        v        v
+  ;;           IS       A       [*|*]--->NIL
+  ;;                             |
+  ;;                             v
+  ;;                            TEST!
+
+#+end_src
+
+
+** Roadmap
+
+ - [X] Build configuration manager system
+ - [X] Incorporate config-manager persistence via sqlite
+ - [X] Begin Scaffolding GTK4 UI System
+ - [X] Build a documentation system
+ - [ ] Extend Configuration Manager to build/deploy external systems
+ - [ ] Build a GTK4 GUI config system inspector
+
+ - [ ] Build a CLI executable for deployment system (?)
+ - [ ] Build a CL ASDF package-inferred-system scaffolding tool (?)
+
+
+** References:
+ - TBD
+ - TBD

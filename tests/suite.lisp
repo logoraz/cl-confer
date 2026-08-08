@@ -1,17 +1,17 @@
-(defpackage :aoforce-tests/suite
+(defpackage :sojrn-tests/suite
   (:use :cl
         :5am
-        :aoforce/utils/syntax
-        :aoforce)
+        :sojrn/utils/syntax
+        :sojrn)
   (:export )
   (:documentation "Base Test Suite"))
-(in-package :aoforce-tests/suite)
+(in-package :sojrn-tests/suite)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Define the test suite
 
-(def-suite suite :description "AOFORCE test suite")
+(def-suite suite :description "SOJRN test suite")
 (in-suite suite)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,4 +1,4 @@
-#+title: AOFORCE Styleguide
+#+title: SOJRN Styleguide
 #+author: logoraz
 #+date: 2025-12-25
 #+options: toc:nil
@@ -25,7 +25,7 @@ modules/libraries that can be loaded separately.
 
 All files should be their own package for clarity & modularity.
 
-This project has only one system, i.e. =aoforce.asd= and subsystem are
+This project has only one system, i.e. =sojrn.asd= and subsystem are
 specified therein according to asdf's best practices guide (link above).
 
 Additional systems are defined in the libraries directory and are their own

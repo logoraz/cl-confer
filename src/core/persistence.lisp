@@ -1,6 +1,6 @@
-(defpackage :aoforce/core/persistence
+(defpackage :sojrn/core/persistence
   (:use :cl
-        :aoforce/core/config-manager)
+        :sojrn/core/config-manager)
   (:import-from :uiop/filesystem
                 #:ensure-all-directories-exist)
   (:import-from :uiop/configuration
@@ -36,14 +36,14 @@ This module provides:
 Requires: cl-dbi (SQLite3 backend)
 "))
 
-(in-package :aoforce/core/persistence)
+(in-package :sojrn/core/persistence)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Database Configuration
 ;;;
 
 (defparameter *db-path*
-  (merge-pathnames "aoforce/deployments.db" (xdg-data-home))
+  (merge-pathnames "sojrn/deployments.db" (xdg-data-home))
   "Default path for the SQLite database.")
 
 (defparameter *db-connection* nil

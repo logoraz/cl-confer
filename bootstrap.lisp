@@ -7,7 +7,7 @@
                     (#:posix #:sb-posix))
   (:export #:bootstrap
            #:install-ocicl-deps)
-  (:documentation "Script to bootstrap :aoforce"))
+  (:documentation "Script to bootstrap :sojrn"))
 
 (in-package #:bootstrap)
 
@@ -43,13 +43,13 @@ Returns T if symlink was created, NIL if it already existed and FORCE was nil."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; AOFORCE Bootstrap
+;;; SOJRN Bootstrap
 
 (defun bootstrap (&key (force nil))
-  "Bootstrap :aoforce by setting up .sbclrc symlink that ensures ocicl is
+  "Bootstrap :sojrn by setting up .sbclrc symlink that ensures ocicl is
 properly configured, and then installs dependencies with ocicl."
   
-  (format t "~%Bootstrapping aoforce configuration...~%~%")
+  (format t "~%Bootstrapping sojrn configuration...~%~%")
   
   ;; Get the directory where this script is located (current working directory)
   (let ((clfiles-dir (merge-pathnames #P"files/common-lisp/"
@@ -58,8 +58,7 @@ properly configured, and then installs dependencies with ocicl."
     (format t "Using directory: ~A~%~%" clfiles-dir)
     
     ;; Ensure ocicl directory exists
-    (ensure-directories-exist (merge-pathnames #P"aoforce/ocicl/"
-                                               #P"~/Work/"))
+    (ensure-directories-exist (merge-pathnames #P"sojrn/ocicl/"))
 
     ;; Create symlinks for config files
     (create-symlink (merge-pathnames "dot-sbclrc.lisp" clfiles-dir)

@@ -1,9 +1,6 @@
 # API Reference
 
-## Package AOFORCE
-
-### `SIMPLE-TEST2` (function)
-Simple function for testing.
+## Package SOJRN
 
 ### `MAIN` (function)
 Main entry point for the executable.

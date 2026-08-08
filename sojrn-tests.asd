@@ -1,12 +1,12 @@
-(defsystem "aoforce-tests"
+(defsystem "sojrn-tests"
   :description "Unit tests"
   :class :package-inferred-system
   :pathname "tests"
-  :depends-on ("aoforce-tests/suite")
+  :depends-on ("sojrn-tests/suite")
   :perform (test-op (o c)
                     (symbol-call :fiveam :run!
                                  (find-symbol "SUITE"
-                                              :aoforce-tests/suite))))
+                                              :sojrn-tests/suite))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

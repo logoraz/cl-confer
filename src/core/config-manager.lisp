@@ -1,6 +1,6 @@
-(defpackage :aoforce/core/config-manager
+(defpackage :sojrn/core/config-manager
   (:use :cl
-        :aoforce/utils/syntax
+        :sojrn/utils/syntax
         :trivial-gray-streams)
   (:import-from :osicat
                 #:make-link
@@ -43,7 +43,7 @@
            #:deployment-error)
   (:documentation "CLOS-based Configuration Manager"))
 
-(in-package :aoforce/core/config-manager)
+(in-package :sojrn/core/config-manager)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
