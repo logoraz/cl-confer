@@ -37,8 +37,8 @@ Returns T if symlink was created, NIL if it already existed and FORCE was nil."
   (let ((ocicl-dir (merge-pathnames #P"ocicl/" (u:getcwd))))
     (labels ((vend (deps acc)
                (if (null deps) acc
-                   (let* ((system-name (caar deps))
-                         (git-url (cdar deps))
+                   (let* ((system-name (car (first deps)))
+                          (git-url (cdr (first deps)))
                          (target-dir (merge-pathnames
                                       (concatenate 'string system-name "/")
                                       ocicl-dir)))
@@ -53,7 +53,7 @@ Returns T if symlink was created, NIL if it already existed and FORCE was nil."
                       :output t
                       :error-output t)
                      (setf acc (cons system-name acc))
-                     (vend (cdr deps) acc)))))
+                     (vend (rest deps) acc)))))
       (vend deps '()))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

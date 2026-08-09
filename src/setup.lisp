@@ -23,37 +23,12 @@
 
 (defparameter *config-mgr* (make-instance 'config-manager))
 
-;; Shell Environment
-;; 1.  ~/Work/sojrn/files/bash/dot-bashrc.sh --> ~/.bashrc
-#+(or)
-(add-config *config-mgr*
-            "Bash RC"
-            "~/Work/sojrn/files/bash/dot-bashrc.sh"
-            "~/.bashrc"
-            :spec :symlink
-            :type :file)
+(defparameter *config-spec*
+  '(("SBCL Config"
+     "~/Work/sojrn/files/common-lisp/dot-sbclrc.lisp" "~/.sbclrc"
+     :spec :symlink :type :file)))
 
-;; 2.  ~/Work/sojrn/files/bash/dot-bash_profile.sh --> ~/.bash_profile
-#+(or)
-(add-config *config-mgr*
-            "Bash Profile"
-            "~/Work/sojrn/files/bash/dot-bash_profile.sh"
-            "~/.bash_profile"
-            :spec :symlink
-            :type :file)
-
-;; Common Lisp Environment
-;; 3.  ~/Work/sojrn/files/common-lisp/dot-sbclrc.lisp --> ~/.sbclrc
-;; Already handled in bootstrap... though adding here for completion
-(add-config *config-mgr*
-            "SBCL Config"
-            "~/Work/sojrn/files/common-lisp/dot-sbclrc.lisp"
-            "~/.sbclrc"
-            :spec :symlink
-            :type :file)
-
-;; Common Lisp Programs
-
+(add-configs *config-mgr* *config-spec*)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

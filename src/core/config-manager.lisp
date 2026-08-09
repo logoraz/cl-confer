@@ -23,6 +23,7 @@
            #:config-type)
   ;; Manager Methods
   (:export #:add-config
+           #:add-configs
            #:remove-config
            #:find-config
            #:list-configs
@@ -125,7 +126,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Methods (Core Behavior)
+;;; Methods/Public API (Core Behavior)
 
 (defmethod add-config ((manager config-manager) name source place
                        &key (spec :symlink) (type :file) (validate t))
@@ -152,6 +153,19 @@ Replaces existing config with same name."
                          :type   type)
           (configs manager)))
   manager)
+
+(defun add-configs (mgr spec)
+  "Add multiple config entries to MGR from SPEC.
+SPEC is a list of entries, each shaped as add-config's own argument
+list: (name source place &key spec type validate). Returns the names
+of the configs added, in reverse of SPEC's order."
+  (labels ((rec (spec acc)
+             (if (null spec) acc
+                 (let ((entry (first spec)))
+                   (apply #'add-config mgr entry)
+                   (setf acc (cons (first entry) acc))
+                   (rec (rest spec) acc)))))
+    (rec spec '())))
 
 (defmethod remove-config ((manager config-manager) (name string))
   "Remove config by name."
@@ -323,7 +337,7 @@ Returns a list of performed actions:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Helper Functions/Utilities
+;;; Helper Functions/Macros/Utilities
 
 (defun expand-pathname (pathspec)
   "Expand ~ and ~/ to user's home directory."
