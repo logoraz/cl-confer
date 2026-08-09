@@ -1,4 +1,4 @@
-#+title: SOJRN - Common Lisp dotfile/config deployment
+#+title: SOJRN - Common Lisp config/dotfile deployment
 #+author: logoraz
 #+date: 2026-08-06
 #+options: toc:nil
@@ -74,20 +74,29 @@ add-config — name, source, target, plus a :spec (symlink or copy) and :type. I
 validates the source exists before accepting the entry, warning rather than
 failing if it doesn't. persistence.lisp backs it with a cl-dbi database, so
 deployment state is tracked over time rather than re-inferred from the filesystem
-each run. setup.lisp holds the actual per-machine declarations — the manager
-itself is generic, setup.lisp is the policy.
+each run. =user-config.lisp= holds the actual per-machine declarations — the manager
+itself is generic, =user-config.lisp= is the policy.
 
-First edit/modify =sojrn/src/setup.lisp= (=:setup=) and then deploy your
-configuration as follows:
+First edit/modify =*config-spec*= to your specific dotfile/config specifications
+and then deploy (the default manager instance is defined in =*config-mgr*=):
 
 #+begin_src lisp
+
+  ;; Apply your own config specification
+  #+(or)
+  (setf *config-spec*
+  '(("Your SBCL Config"
+     "path/to/source/.sbclrc.lisp" "~/.sbclrc"
+     :spec :symlink :type :file)))
+
+  ;; Defaults
 
   ;; cd to ~/Work/sojrn/ (or location of this repo)
   (asdf:load-system :sojrn)
   ;; First visualize your deployment plan
-  (sojrn:outline)
+  (sojrn:outline sojrn:*config-mgr*)
   ;; Deploy!
-  (sojrn:deploy)
+  (sojrn:deploy sojrn:*config-mgr*)
 
 #+end_src
 
@@ -147,11 +156,30 @@ learning tool (a cons cell visual aid) in this project as follows:
  - [X] Build a documentation system
  - [ ] Extend Configuration Manager to build/deploy external systems
  - [ ] Build a GTK4 GUI config system inspector
-
  - [ ] Build a CLI executable for deployment system (?)
  - [ ] Build a CL ASDF package-inferred-system scaffolding tool (?)
 
 
 ** References:
- - TBD
- - TBD
+
+  - [[https://github.com/ocicl/ocicl][ocicl]] — Common Lisp system manager used throughout this project.
+  - [[https://github.com/crategus/cl-cffi-gtk4][cl-cffi-gtk4]] and its sibling libraries:
+    - [[https://github.com/crategus/cl-cffi-gdk-pixbuf][cl-cffi-gdk-pixbuf]]
+    - [[https://github.com/crategus/cl-cffi-glib][cl-cffi-glib]],
+    - [[https://github.com/crategus/cl-cffi-cairo][cl-cffi-cairo]],
+    - [[https://github.com/crategus/cl-cffi-pango][cl-cffi-pango]],
+    - [[https://github.com/crategus/cl-cffi-graphene][cl-cffi-graphene]],
+  - [[https://github.com/sionescu/fiveam][FiveAM]] — the testing framework backing =sojrn-tests=.
+  - [[https://github.com/3b/3bmd][3bmd]] — Markdown rendering used by =sojrn-docs='s generator.
+  - [[https://www.cs.cmu.edu/~dst/LispBook/][Common Lisp: A Gentle Introduction to Symbolic Computation]]
+    - source for the =sdraw=/=dtrace= learning tools in =learn-cl=.
+  - [[https://guix.gnu.org/][GNU Guix]] - The system this project was develop on
+    — the environment =manifest.scm= targets.
+
+
+** License
+
+  Licensed under the [[https://www.apache.org/licenses/LICENSE-2.0][Apache-2.0]], fork it, sell it, build an empire on it, just
+  don't sue me over patents and leave the copyright notice where you found it!
+
+  See =LICENSE= for the full text.

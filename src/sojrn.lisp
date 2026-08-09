@@ -2,7 +2,10 @@
   (:use #:cl)
   (:import-from :sojrn/utils/syntax
                 #:nlet)
-  (:import-from :sojrn/setup
+  (:import-from :sojrn/user-config
+                #:*config-spec*
+                #:*config-mgr*)
+  (:import-from :sojrn/deployment
                 #:outline
                 #:deploy)
   (:import-from :sojrn/ui/app
@@ -18,7 +21,9 @@
            #:simple-test2
            #:simple-test3)
   ;; Setup
-  (:export #:outline
+  (:export #:*config-mgr*
+           #:*config-spec*
+           #:outline
            #:deploy)
   ;; Main Entry
   (:export #:main)
@@ -53,6 +58,11 @@
         (nreverse acc)
         (rec (1+ i)
              (cons (list (format nil "list ~A" i) (/ i n)) acc)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Helpers & Conveneience Wrappers
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

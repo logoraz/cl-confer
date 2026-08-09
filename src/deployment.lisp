@@ -1,6 +1,6 @@
-(defpackage :sojrn/setup
+(defpackage :sojrn/deployment
   (:use :cl
-        :sojrn/core/config-manager
+   :sojrn/core/config-manager
         :sojrn/core/persistence)
   ;; Basic Setup
   (:export #:outline
@@ -13,58 +13,45 @@
            #:save-snapshot
            #:load-snapshot
            #:snapshots)
-  (:documentation "Setup script to scaffold CL configuration/environment."))
+  (:documentation "Deployment, history, and snapshot API."))
 
-(in-package :sojrn/setup)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; Current Configuration Setup
-
-(defparameter *config-mgr* (make-instance 'config-manager))
-
-(defparameter *config-spec*
-  '(("SBCL Config"
-     "~/Work/sojrn/files/common-lisp/dot-sbclrc.lisp" "~/.sbclrc"
-     :spec :symlink :type :file)))
-
-(add-configs *config-mgr* *config-spec*)
+(in-package :sojrn/deployment)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Deploy config-objects (Original - no persistence)
 
-(defun outline ()
+(defun outline (mgr)
   "List your Configuration Environment outline."
   (unless *print-pretty*
     (setf *print-pretty* t))
   (let ((stream (make-instance 'colored-stream :target *standard-output*)))
-    (list-configs *config-mgr* stream)))
+    (list-configs mgr stream)))
 
-(defun deploy ()
+(defun deploy (mgr)
   "Deploy Your Configuration Environment (without recording to database)."
   (unless *print-pretty*
     (setf *print-pretty* t))
   (let ((stream (make-instance 'colored-stream :target *standard-output*)))
-    (deploy-configs *config-mgr* stream)))
+    (deploy-configs mgr stream)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Deploy with Persistence
 
-(defun deploy-and-record (&key (notes nil))
+(defun deploy-and-record (mgr &key (notes nil))
   "Deploy configurations and record to the database.
 Optional NOTES can describe this deployment
 (e.g., 'Initial setup', 'Added emacs config').
 
 Example:
-  (deploy-and-record :notes \"Initial workstation setup\")"
+  (deploy-and-record mgr :notes \"Initial workstation setup\")"
   (unless *print-pretty*
     (setf *print-pretty* t))
   (let ((stream (make-instance 'colored-stream :target *standard-output*)))
     (with-database ()
       (multiple-value-bind (deployment-id status)
-          (deploy-with-history *config-mgr* :notes notes :verbose stream)
+          (deploy-with-history mgr :notes notes :verbose stream)
         (format stream "~%Deployment ID: ~A, Status: ~A~%" deployment-id status)
         (values deployment-id status)))))
 
@@ -112,32 +99,32 @@ Example:
 ;;;
 ;;; Snapshots - Save/Load Configuration Sets
 
-(defun save-snapshot (name &key (description nil))
+(defun save-snapshot (mgr name &key (description nil))
   "Save the current configuration as a named snapshot.
 Snapshots let you save different configuration sets and switch between them.
 
 Example:
-  (save-snapshot \"workstation\" :description \"Full dev environment\")
-  (save-snapshot \"minimal\" :description \"Just shell configs\")"
+  (save-snapshot mgr \"workstation\" :description \"Full dev environment\")
+  (save-snapshot mgr \"minimal\" :description \"Just shell configs\")"
   (with-database ()
-    (let ((id (save-config-snapshot *config-mgr* name :description description)))
+    (let ((id (save-config-snapshot mgr name :description description)))
       (format t "Snapshot '~A' saved with ID ~A~%" name id)
       id)))
 
-(defun load-snapshot (snapshot-id)
+(defun load-snapshot (mgr snapshot-id)
   "Load a snapshot into the current config manager.
-WARNING: This replaces all current configs in *config-mgr*.
+WARNING: This replaces all current configs in mgr.
 
 Example:
-  (snapshots)       ; List available snapshots
-  (load-snapshot 1) ; Load snapshot with ID 1
-  (outline)         ; Verify loaded configs
-  (deploy)          ; Deploy the loaded configs"
+  (snapshots)            ; List available snapshots
+  (load-snapshot mgr 1)  ; Load snapshot with ID 1
+  (outline mgr)          ; Verify loaded configs
+  (deploy mgr)           ; Deploy the loaded configs"
   (with-database ()
-    (load-config-snapshot *config-mgr* snapshot-id)
-    (format t "Loaded snapshot ~A into *config-mgr*~%" snapshot-id)
+    (load-config-snapshot mgr snapshot-id)
+    (format t "Loaded snapshot ~A into mgr~%" snapshot-id)
     (format t "Use (outline) to see configs, (deploy) to deploy.~%")
-    *config-mgr*))
+    mgr))
 
 (defun snapshots (&key (limit 20))
   "List available configuration snapshots.
@@ -169,18 +156,7 @@ Example:
   (init-db)"
   (initialize-database)
   (format t "~%Database ready. You can now use:~%")
-  (format t "  (deploy-and-record :notes \"...\") - Deploy with history~%")
-  (format t "  (history)                         - View past deployments~%")
-  (format t "  (save-snapshot \"name\")            - Save current config~%")
-  (format t "  (snapshots)                       - List saved snapshots~%"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; Install/Configure Common Lisp Utilities (i.e. ocicl, ccl, etc)
-;;;
-;; TODO: Enable `config-manager` to install/setup Common Lisp utilities like
-;; ocicl...
-
-#+(or)
-(progn
-  sbcl --eval "(defconstant +dynamic-space-size+ 2048)" --load setup.lisp)
+  (format t "  (deploy-and-record mgr :notes \"...\") - Deploy with history~%")
+  (format t "  (history)                              - View past deployments~%")
+  (format t "  (save-snapshot mgr \"name\")           - Save current config~%")
+  (format t "  (snapshots)                            - List saved snapshots~%"))
