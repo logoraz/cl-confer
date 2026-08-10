@@ -16,6 +16,16 @@
 ;;; References
 ;;;
 
+(defun sojrn-packages ()
+  "Return all loaded SOJRN packages, excluding docs/tests infrastructure."
+  (remove-if-not
+   (lambda (pkg)
+     (let ((name (package-name pkg)))
+       (and (uiop:string-prefix-p "SOJRN" name)
+            (not (member name '("SOJRN-DOCS" "SOJRN-TESTS")
+                         :test #'string=)))))
+   (list-all-packages)))
+
 (defun render-md-file (input output)
   "Render MD file from INPUT and write normalized Markdown to OUTPUT."
   (with-open-file (in input)
@@ -25,7 +35,7 @@
                          :if-does-not-exist :create)
       (3bmd:parse-and-print-to-stream in out))))
 
-(defun generate-api-md (output-file &key (packages '(:sojrn)))
+(defun generate-api-md (output-file &key (packages (sojrn-packages)))
   "Generate an API reference in Markdown by extracting docstrings
 from the given PACKAGES and writing them to OUTPUT-FILE."
   (with-open-file (out output-file
@@ -64,7 +74,7 @@ from the given PACKAGES and writing them to OUTPUT-FILE."
          (sections '("intro.md" "usage.md" "api.md" "internals.md")))
     (ensure-directories-exist manual)
     (generate-api-md (merge-pathnames "api.md" manual)
-                     :packages '(:sojrn))
+                     :packages (sojrn-packages))
     (ensure-directories-exist outdir)
     (dolist (f sections)
       (render-md-file

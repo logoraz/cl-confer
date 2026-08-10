@@ -8,11 +8,100 @@
 
 <h1>API Reference</h1>
 
+<h2>Package SOJRN/CORE/CONFIG-MANAGER</h2>
+
+<h3><code>CONFIG-MANAGER</code> (type)</h3>
+
+<p>Manages a collection of config-object entries.</p>
+
+<h3><code>EXPAND-PATHNAME</code> (function)</h3>
+
+<p>Expand ~ and ~/ to user's home directory.</p>
+
+<h3><code>SYMLINK-UPDATE-NEEDED-P</code> (function)</h3>
+
+<p>Return T if LINK needs updating to point to TARGET.
+Returns T if:
+  - LINK doesn't exist
+  - LINK exists but is not a symlink
+  - LINK is a symlink but points to a different target</p>
+
+<p>If DIR is true, treats TARGET as a directory path.</p>
+
+<h3><code>CREATE-SYMLINK</code> (function)</h3>
+
+<p>Create a symlink at LINK pointing to SRC.</p>
+
+<p>Keywords:
+  DIR - If true, treat SRC as a directory
+  OVERWRITE - If true (default), replace existing file/symlink at LINK
+  BACKUP - If true, backup existing file before overwriting (only for regular files)</p>
+
+<p>Returns LINK pathname on success.
+Signals an error if LINK exists and OVERWRITE is NIL.</p>
+
+<h3><code>ADD-CONFIGS</code> (function)</h3>
+
+<p>Add multiple config entries to MGR from SPEC.
+SPEC is a list of entries, each shaped as add-config's own argument
+list: (name source place &amp;key spec type validate). Returns the names
+of the configs added, in reverse of SPEC's order.</p>
+
+<h3><code>DEPLOY-CONFIGS</code> (function)</h3>
+
+<p>Deploy all configurations.</p>
+
+<h3><code>CONFIG-OBJECT</code> (type)</h3>
+
+<p>Represents a single configuration entry.</p>
+
+<h3><code>CONFIG-ERROR</code> (type)</h3>
+
+<p>Base condition for config-manager errors.</p>
+
+<h3><code>REMOVE-CONFIG</code> (function)</h3>
+
+<p>Remove a config entry by name or object.</p>
+
+<h3><code>SYMLINKP</code> (function)</h3>
+
+<p>Test if path is a symlink.</p>
+
+<h3><code>CONFIG-COUNT</code> (function)</h3>
+
+<p>Return the number of configs.</p>
+
+<h3><code>CLEAR-CONFIGS</code> (function)</h3>
+
+<p>Remove all config entries.</p>
+
+<h3><code>FIND-CONFIG</code> (function)</h3>
+
+<p>Find a config by name.</p>
+
+<h3><code>SYMLINK-TARGET</code> (function)</h3>
+
+<p>Return the target of symlink PATHSPEC, or NIL if not a symlink.
+Uses osicat:read-link internally.</p>
+
+<h3><code>ADD-CONFIG</code> (function)</h3>
+
+<p>Add a config entry to the manager.</p>
+
+<h3><code>LIST-CONFIGS</code> (function)</h3>
+
+<p>Print the deployment plan.</p>
+
+<h3><code>COPY-DIRECTORY</code> (function)</h3>
+
+<p>Recursively copy directory SOURCE to DEST using pure Lisp.</p>
+
+<p>Keywords:
+  OVERWRITE - If true (default), overwrite existing files</p>
+
+<p>Creates DEST if it doesn't exist. Copies all files and subdirectories.</p>
+
 <h2>Package SOJRN</h2>
-
-<h3><code>SIMPLE-TEST2</code> (function)</h3>
-
-<p>Simple iteration example illustration recursion using labels</p>
 
 <h3><code>MAIN</code> (function)</h3>
 
@@ -22,9 +111,188 @@
 
 <p>Simple iteration example illustration recursion using custom nlet macro.</p>
 
+<h3><code>SIMPLE-TEST2</code> (function)</h3>
+
+<p>Simple iteration example illustration recursion using labels</p>
+
 <h3><code>SIMPLE-TEST</code> (function)</h3>
 
 <p>Simple iteration example illustrating loop.</p>
+
+<h2>Package SOJRN/UI/APP</h2>
+
+<h3><code>SOJRN-APP</code> (function)</h3>
+
+<p>Create and run a minimal GTK4 application window with a close button.</p>
+
+<h2>Package SOJRN/DEPLOYMENT</h2>
+
+<h3><code>OUTLINE</code> (function)</h3>
+
+<p>List your Configuration Environment outline.</p>
+
+<h3><code>LOAD-SNAPSHOT</code> (function)</h3>
+
+<p>Load a snapshot into the current config manager.
+WARNING: This replaces all current configs in mgr.</p>
+
+<p>Example:
+  (snapshots)            ; List available snapshots
+  (load-snapshot mgr 1)  ; Load snapshot with ID 1
+  (outline mgr)          ; Verify loaded configs
+  (deploy mgr)           ; Deploy the loaded configs</p>
+
+<h3><code>SNAPSHOTS</code> (function)</h3>
+
+<p>List available configuration snapshots.</p>
+
+<p>Example:
+  (snapshots)</p>
+
+<h3><code>DEPLOY</code> (function)</h3>
+
+<p>Deploy Your Configuration Environment (without recording to database).</p>
+
+<h3><code>ROLLBACK</code> (function)</h3>
+
+<p>Rollback a deployment by ID.
+By default, DRY-RUN is T - it will only show what would be removed.
+Set DRY-RUN to NIL to actually perform the rollback.</p>
+
+<p>Example:
+  (rollback 1)              ; Preview what would be rolled back
+  (rollback 1 :dry-run nil) ; Actually perform rollback</p>
+
+<h3><code>SAVE-SNAPSHOT</code> (function)</h3>
+
+<p>Save the current configuration as a named snapshot.
+Snapshots let you save different configuration sets and switch between them.</p>
+
+<p>Example:
+  (save-snapshot mgr &quot;workstation&quot; :description &quot;Full dev environment&quot;)
+  (save-snapshot mgr &quot;minimal&quot; :description &quot;Just shell configs&quot;)</p>
+
+<h3><code>HISTORY</code> (function)</h3>
+
+<p>Show recent deployment history.</p>
+
+<p>Example:
+  (history)        ; Show last 10 deployments
+  (history :limit 5) ; Show last 5 deployments</p>
+
+<h3><code>DEPLOY-AND-RECORD</code> (function)</h3>
+
+<p>Deploy configurations and record to the database.
+Optional NOTES can describe this deployment
+(e.g., 'Initial setup', 'Added emacs config').</p>
+
+<p>Example:
+  (deploy-and-record mgr :notes &quot;Initial workstation setup&quot;)</p>
+
+<h3><code>INIT-DB</code> (function)</h3>
+
+<p>Initialize the persistence database. Run this once before using persistence features.</p>
+
+<p>Example:
+  (init-db)</p>
+
+<h2>Package SOJRN/UTILS/SYNTAX</h2>
+
+<h3><code>CONCAT</code> (function)</h3>
+
+<p>Shorthand for CONCATENATE specialized for strings.</p>
+
+<h2>Package SOJRN/USER-CONFIG</h2>
+
+<h3><code>*CONFIG-SPEC*</code> (variable)</h3>
+
+<p>Default config spec, pulls from the sorjn files directory.</p>
+
+<h2>Package SOJRN/CORE/PERSISTENCE</h2>
+
+<h3><code>SAVE-CONFIG-SNAPSHOT</code> (function)</h3>
+
+<p>Save current manager configuration as a named snapshot.</p>
+
+<h3><code>ROLLBACK-DEPLOYMENT</code> (function)</h3>
+
+<p>Attempt to rollback a deployment by reversing its actions.
+For symlinks: remove the symlink
+For copies: remove the copied file (original source still exists)</p>
+
+<p>If DRY-RUN is true, only report what would be done.</p>
+
+<h3><code>WITH-DATABASE</code> (function)</h3>
+
+<p>Execute BODY with a database connection bound to <em>db-connection</em>.
+Automatically handles connection opening and closing.</p>
+
+<h3><code>GET-DEPLOYMENT-BY-ID</code> (function)</h3>
+
+<p>Get a deployment record with all its actions.</p>
+
+<h3><code>INITIALIZE-DATABASE</code> (function)</h3>
+
+<p>Initialize the database with the required schema.</p>
+
+<h3><code>DEPLOY-WITH-HISTORY</code> (function)</h3>
+
+<p>Deploy configurations and record in database.
+Returns (values deployment-id results).</p>
+
+<h3><code>GET-LATEST-DEPLOYMENT</code> (function)</h3>
+
+<p>Get the most recent deployment.</p>
+
+<h3><code>GET-DEPLOYMENT-HISTORY</code> (function)</h3>
+
+<p>Get recent deployment history.</p>
+
+<h3><code>LOAD-CONFIG-SNAPSHOT</code> (function)</h3>
+
+<p>Load a snapshot into MANAGER, replacing current configs.</p>
+
+<h3><code>LIST-SNAPSHOTS</code> (function)</h3>
+
+<p>List available configuration snapshots.</p>
+
+<h3><code>RECORD-DEPLOYMENT</code> (function)</h3>
+
+<p>Record a new deployment from MANAGER, returning the deployment ID.
+Call this BEFORE deploy-configs to create the deployment record,
+then update action statuses as deployment proceeds.</p>
+
+<h3><code>*DB-PATH*</code> (variable)</h3>
+
+<p>Default path for the SQLite database.</p>
+
+<h2>Package SOJRN-DOCS/GENERATOR</h2>
+
+<h3><code>BUILD-DOCS</code> (function)</h3>
+
+<p>Documentation builder for sojrn.</p>
+
+<h2>Package SOJRN/UTILS/ANSI-COLOR</h2>
+
+<h3><code>ARROW</code> (function)</h3>
+
+<p>Return arrow string based on Unicode support.</p>
+
+<h3><code>COLOR</code> (function)</h3>
+
+<p>Return concatenated ANSI codes for COMMANDS.</p>
+
+<h3><code>STRIP-ANSI</code> (function)</h3>
+
+<p>Remove ANSI escape codes from string S.</p>
+
+<h3><code>*USE-UNICODE-ARROWS*</code> (variable)</h3>
+
+<p>Use Unicode arrows (→) when T and terminal supports it.</p>
+
+<h3><code>COLORED-STREAM</code> (type)</h3>
+
+<p>A Gray stream that adds ANSI colors to output.</p>
 
 <h1>SOJRN System Internals</h1>
 
