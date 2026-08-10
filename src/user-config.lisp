@@ -10,25 +10,34 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Current Configuration Setup
+;;; Defaults: Configuration Setup
+
+(defvar *user-sojrn-directory*
+  (merge-pathnames #P"sojrn/" (uiop:xdg-config-home)))
 
 (defparameter *config-mgr* (make-instance 'config-manager))
 
-(defparameter *config-spec*
-  '(("SBCL Config"
-     "~/Work/sojrn/files/common-lisp/dot-sbclrc.lisp" "~/.sbclrc"
-     :spec :symlink :type :file)))
-
-(add-configs *config-mgr* *config-spec*)
+(defparameter *config-spec* nil
+  "Default config spec, pulls from the sorjn files directory.")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Install/Configure Common Lisp Utilities (i.e. ocicl, ccl, etc)
+;;; User config scaffolding
 ;;;
-;; TODO: Enable `config-manager` to install/setup Common Lisp utilities like
-;; ocicl...
 
-#+(or)
-(progn
-  sbcl --eval "(defconstant +dynamic-space-size+ 2048)" --load setup.lisp)
+(defun user-config-exists? ()
+  "Check whether user-config directory and files exists"
+  (probe-file (merge-pathnames "config.lisp" *user-sojrn-directory*)))
+
+(if (user-config-exists?)
+    (load (merge-pathnames "config.lisp"
+                           *user-sojrn-directory*))
+    (let ((sojrn-dir (merge-pathnames #P"files/"
+                                      (asdf:system-source-directory :sojrn))))
+      (ensure-directories-exist *user-sojrn-directory*)
+      (setf *config-spec*
+            `(("SBCL Config"
+               ,(uiop:native-namestring sojrn-dir) "~/.sbclrc"
+               :spec :symlink :type :file)))
+      (add-configs *config-mgr* *config-spec*)))

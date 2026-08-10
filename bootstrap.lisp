@@ -3,8 +3,6 @@
 
 (defpackage :bootstrap
   (:use :cl)
-  (:local-nicknames (#:u :uiop)
-                    (#:posix :sb-posix))
   (:export #:bootstrap)
   (:documentation "Script to bootstrap :sojrn"))
 
@@ -18,8 +16,8 @@
   "Create a symlink from SOURCE to TARGET.
 If FORCE is true, remove existing file/symlink at TARGET first.
 Returns T if symlink was created, NIL if it already existed and FORCE was nil."
-  (let ((source-path (u:native-namestring (u:ensure-pathname source)))
-        (target-path (u:native-namestring (u:ensure-pathname target))))
+  (let ((source-path (uiop:native-namestring (uiop:ensure-pathname source)))
+        (target-path (uiop:native-namestring (uiop:ensure-pathname target))))
     (when (probe-file target-path)
       (if force
           (progn
@@ -34,7 +32,7 @@ Returns T if symlink was created, NIL if it already existed and FORCE was nil."
 
 (defun vendor-deps (deps)
   "Vendor dependencies, DEPS ((system-name . git-urls) ...), to ocicl directory."
-  (let ((ocicl-dir (merge-pathnames #P"ocicl/" (u:getcwd))))
+  (let ((ocicl-dir (merge-pathnames #P"ocicl/" (uiop:getcwd))))
     (labels ((vend (deps acc)
                (if (null deps) acc
                    (let* ((system-name (car (first deps)))
@@ -43,13 +41,13 @@ Returns T if symlink was created, NIL if it already existed and FORCE was nil."
                                       (concatenate 'string system-name "/")
                                       ocicl-dir)))
                      (if (probe-file target-dir)
-                         (u:delete-directory-tree target-dir :validate t))
+                         (uiop:delete-directory-tree target-dir :validate t))
                      (format t "~%Vendoring: ~A -> ~A~%" git-url target-dir)
                      (force-output)
-                     (u:run-program
+                     (uiop:run-program
                       (concatenate 'string "git clone "
                                    git-url " "
-                                   (u:native-namestring target-dir))
+                                   (uiop:native-namestring target-dir))
                       :output t
                       :error-output t)
                      (setf acc (cons system-name acc))
@@ -67,8 +65,8 @@ properly configured, and then installs dependencies with ocicl."
   (format t "~%Bootstrapping sojrn configuration...~%~%")
   
   ;; Get the directory where this script is located (current working directory)
-  (let ((clfiles-dir (merge-pathnames #P"files/common-lisp/" (u:getcwd)))
-        (ocicl-dir (merge-pathnames #P"ocicl/" (u:getcwd))))
+  (let ((clfiles-dir (merge-pathnames #P"files/common-lisp/" (uiop:getcwd)))
+        (ocicl-dir (merge-pathnames #P"ocicl/" (uiop:getcwd))))
 
     (format t "Config file source directory: ~A~%~%" clfiles-dir)
     
