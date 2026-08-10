@@ -27,7 +27,7 @@ Returns T if symlink was created, NIL if it already existed and FORCE was nil."
             (format t "Skipping (already exists): ~A~%~%" target-path)
             (return-from create-symlink nil))))
     (format t "Creating symlink: ~A -> ~A~%" target-path source-path)
-    (posix:symlink source-path target-path)
+    (sb-posix:symlink source-path target-path)
     t))
 
 (defun vendor-deps (deps)
