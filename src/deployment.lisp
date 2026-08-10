@@ -1,7 +1,8 @@
 (defpackage :sojrn/deployment
   (:use :cl
-   :sojrn/core/config-manager
-        :sojrn/core/persistence)
+        :sojrn/core/config-manager
+        :sojrn/core/persistence
+        :sojrn/utils/ansi-color)
   ;; Basic Setup
   (:export #:outline
            #:deploy)

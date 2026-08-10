@@ -1,7 +1,6 @@
 (defpackage :sojrn/utils/syntax
   (:use :cl)
-  (:export #:concat
-           #:nlet)
+  (:export #:concat)
   (:documentation "Syntactic Language Extensions."))
 
 (in-package :sojrn/utils/syntax)
@@ -16,7 +15,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Examples
+;;; Learning...
 
 (defmacro nlet (name bindings &body body)
   `(labels ((,name ,(mapcar #'car bindings) ,@body))
