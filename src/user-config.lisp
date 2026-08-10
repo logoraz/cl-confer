@@ -33,11 +33,13 @@
 (if (user-config-exists?)
     (load (merge-pathnames "config.lisp"
                            *user-sojrn-directory*))
-    (let ((sojrn-dir (merge-pathnames #P"files/"
+    (let ((sojrn-dir (merge-pathnames #P"files/common-lisp/"
                                       (asdf:system-source-directory :sojrn))))
       (ensure-directories-exist *user-sojrn-directory*)
       (setf *config-spec*
             `(("SBCL Config"
-               ,(uiop:native-namestring sojrn-dir) "~/.sbclrc"
+               ,(merge-pathnames #P"dot-sbclrc.lisp"
+                                 (uiop:native-namestring sojrn-dir))
+               "~/.sbclrc"
                :spec :symlink :type :file)))
       (add-configs *config-mgr* *config-spec*)))
