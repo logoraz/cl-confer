@@ -1,4 +1,4 @@
-#+title: SOJRN - Common Lisp config/dotfile deployment
+#+title: SOJRN: Declarative, Transactional Config/Dotfile Deployment in CL
 #+author: logoraz
 #+date: 2026-08-06
 #+options: toc:nil

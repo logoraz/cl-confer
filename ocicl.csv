@@ -48,6 +48,8 @@ osicat, ghcr.io/ocicl/osicat@sha256:48af110420f02e99c37370e48bee10d7c7aada7e5634
 pango-example, ghcr.io/ocicl/cl-cffi-pango@sha256:a2a421ef2cee7f0f8b175c3de267de230826ab2f1a75371e4d9788982017cfd8, cl-cffi-pango-20260326-8aebfe6/example/pango-example.asd
 print-licenses, ghcr.io/ocicl/print-licenses@sha256:985c13101c88fba22672713e2a070b41f82c8c4ec68c4cbd696054313e63f6fa, print-licenses-20240503-3949663/print-licenses.asd
 split-sequence, ghcr.io/ocicl/split-sequence@sha256:3a37662eedd99c42995587b9d443c4631f25c4c523091bcca31a27b880585b8e, split-sequence-2.0.1/split-sequence.asd
+sqlite, ghcr.io/ocicl/sqlite@sha256:a7f80757e6ee13af06e2eeaeff1e079dba439d85ea5c7f68e262bccc40dcbd5c, cl-sqlite-0.2.1/sqlite.asd
+sqlite-tests, ghcr.io/ocicl/sqlite@sha256:a7f80757e6ee13af06e2eeaeff1e079dba439d85ea5c7f68e262bccc40dcbd5c, cl-sqlite-0.2.1/sqlite-tests.asd
 trivial-backtrace, ghcr.io/ocicl/trivial-backtrace@sha256:89a3138695bb767c50001402fad60dacfc1e867e4e3d3579cc6f636d3e29a51c, trivial-backtrace-20240503-7f90b4a/trivial-backtrace.asd
 trivial-backtrace-test, ghcr.io/ocicl/trivial-backtrace@sha256:89a3138695bb767c50001402fad60dacfc1e867e4e3d3579cc6f636d3e29a51c, trivial-backtrace-20240503-7f90b4a/trivial-backtrace-test.asd
 trivial-features, ghcr.io/ocicl/trivial-features@sha256:e278e24d39060fc7d3715531b16ddd9ab7f93f22ade53e436c0b86dbae3aa065, trivial-features-1.0/trivial-features.asd

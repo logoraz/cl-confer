@@ -20,7 +20,9 @@
     "pkg-config"             ; build: locates C library cflags/libs
     "gcc-toolchain"          ; build: compiles cffi-grovel .c output
     "libfixposix"            ; build+runtime: iolib's POSIX bindings
-                             ;   (transitive dep, pulled in by dbus)
+                             ; (transitive dep, pulled in by dbus)
+
+    "sqlite"                ; persistence
 
     ;; GTK4 UI stack
     "gtk"                    ; runtime: GTK4 C library

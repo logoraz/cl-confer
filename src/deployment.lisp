@@ -40,7 +40,7 @@
 ;;;
 ;;; Deploy with Persistence
 
-(defun deploy-and-record (mgr &key (notes nil))
+(defun deploy-and-record (path mgr &key (notes nil))
   "Deploy configurations and record to the database.
 Optional NOTES can describe this deployment
 (e.g., 'Initial setup', 'Added emacs config').
@@ -50,7 +50,7 @@ Example:
   (unless *print-pretty*
     (setf *print-pretty* t))
   (let ((stream (make-instance 'colored-stream :target *standard-output*)))
-    (with-database ()
+    (with-database (path)
       (multiple-value-bind (deployment-id status)
           (deploy-with-history mgr :notes notes :verbose stream)
         (format stream "~%Deployment ID: ~A, Status: ~A~%" deployment-id status)
@@ -60,13 +60,13 @@ Example:
 ;;;
 ;;; History & Rollback
 
-(defun history (&key (limit 10))
+(defun history (path &key (limit 10))
   "Show recent deployment history.
 
 Example:
   (history)        ; Show last 10 deployments
   (history :limit 5) ; Show last 5 deployments"
-  (with-database ()
+  (with-database (path)
     (let ((deployments (get-deployment-history :limit limit)))
       (format t "~%=== Deployment History ===~%~%")
       (if (null deployments)
@@ -80,7 +80,7 @@ Example:
       (format t "~%")
       deployments)))
 
-(defun rollback (deployment-id &key (dry-run t))
+(defun rollback (path deployment-id &key (dry-run t))
   "Rollback a deployment by ID.
 By default, DRY-RUN is T - it will only show what would be removed.
 Set DRY-RUN to NIL to actually perform the rollback.
@@ -88,7 +88,7 @@ Set DRY-RUN to NIL to actually perform the rollback.
 Example:
   (rollback 1)              ; Preview what would be rolled back
   (rollback 1 :dry-run nil) ; Actually perform rollback"
-  (with-database ()
+  (with-database (path)
     (multiple-value-bind (rolled-back total)
         (rollback-deployment deployment-id :dry-run dry-run)
       (if dry-run
@@ -100,19 +100,19 @@ Example:
 ;;;
 ;;; Snapshots - Save/Load Configuration Sets
 
-(defun save-snapshot (mgr name &key (description nil))
+(defun save-snapshot (path mgr name &key (description nil))
   "Save the current configuration as a named snapshot.
 Snapshots let you save different configuration sets and switch between them.
 
 Example:
   (save-snapshot mgr \"workstation\" :description \"Full dev environment\")
   (save-snapshot mgr \"minimal\" :description \"Just shell configs\")"
-  (with-database ()
+  (with-database (path)
     (let ((id (save-config-snapshot mgr name :description description)))
       (format t "Snapshot '~A' saved with ID ~A~%" name id)
       id)))
 
-(defun load-snapshot (mgr snapshot-id)
+(defun load-snapshot (path mgr snapshot-id)
   "Load a snapshot into the current config manager.
 WARNING: This replaces all current configs in mgr.
 
@@ -121,18 +121,18 @@ Example:
   (load-snapshot mgr 1)  ; Load snapshot with ID 1
   (outline mgr)          ; Verify loaded configs
   (deploy mgr)           ; Deploy the loaded configs"
-  (with-database ()
+  (with-database (path)
     (load-config-snapshot mgr snapshot-id)
     (format t "Loaded snapshot ~A into mgr~%" snapshot-id)
     (format t "Use (outline) to see configs, (deploy) to deploy.~%")
     mgr))
 
-(defun snapshots (&key (limit 20))
+(defun snapshots (path &key (limit 20))
   "List available configuration snapshots.
 
 Example:
   (snapshots)"
-  (with-database ()
+  (with-database (path)
     (let ((snaps (list-snapshots :limit limit)))
       (format t "~%=== Configuration Snapshots ===~%~%")
       (if (null snaps)
@@ -150,12 +150,12 @@ Example:
 ;;;
 ;;; Database Initialization (Run once)
 
-(defun init-db ()
+(defun init-db (path)
   "Initialize the persistence database. Run this once before using persistence features.
 
 Example:
   (init-db)"
-  (initialize-database)
+  (initialize-database path)
   (format t "~%Database ready. You can now use:~%")
   (format t "  (deploy-and-record mgr :notes \"...\") - Deploy with history~%")
   (format t "  (history)                              - View past deployments~%")

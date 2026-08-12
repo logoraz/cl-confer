@@ -1,8 +1,12 @@
 (defpackage :sojrn
-  (:use #:cl)
+  (:use :cl)
   (:import-from :sojrn/utils/syntax
                 #:nlet)
   (:import-from :sojrn/user-config
+                #:*user-sojrn-directory*
+                #:*sojrn-cache-directory*
+                #:*sojrn-db-status*
+                #:*user-config-loaded*
                 #:*config-spec*
                 #:*config-mgr*)
   (:import-from :sojrn/deployment
@@ -23,6 +27,10 @@
   ;; Setup
   (:export #:*config-mgr*
            #:*config-spec*
+           #:*user-sojrn-directory*
+           #:*sojrn-cache-directory*
+           #:*sojrn-db-status*
+           #:*user-config-loaded*
            #:outline
            #:deploy)
   ;; Main Entry

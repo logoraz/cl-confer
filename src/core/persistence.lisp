@@ -10,8 +10,7 @@
   (:local-nicknames (#:u #:uiop)
                     (#:db #:dbi))
   ;; Database management
-  (:export #:*db-path*
-           #:with-database
+  (:export #:with-database
            #:initialize-database)
   ;; Deployment records
   (:export #:record-deployment
@@ -39,17 +38,15 @@ Requires: cl-dbi (SQLite3 backend)
 (in-package :sojrn/core/persistence)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Database Configuration
 ;;;
-
-(defparameter *db-path*
-  (merge-pathnames "sojrn/deployments.db" (xdg-data-home))
-  "Default path for the SQLite database.")
+;;;  Database Configuration
+;;;
 
 (defparameter *db-connection* nil
   "Current database connection (dynamically bound).")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Schema Definition
 ;;;
 
@@ -102,31 +99,31 @@ Requires: cl-dbi (SQLite3 backend)
   "SQL statements to initialize the database schema.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Database Connection Management
 ;;;
-(defun ensure-db-directory ()
-  "Ensure the database directory exists."
-  (ensure-all-directories-exist (list *db-path*)))
 
-(defmacro with-database ((&optional (path '*db-path*)) &body body)
+(defmacro with-database ((path) &body body)
   "Execute BODY with a database connection bound to *db-connection*.
-Automatically handles connection opening and closing."
-  `(let ((*db-path* ,path))
-     (ensure-db-directory)
-     ;; Using cl-dbi style - adjust if using different library
-     (db:with-connection (*db-connection* :sqlite3 :database-name (u:native-namestring *db-path*))
-       ,@body)))
+Automatically handles connection opening and closing. PATH is required."
+  `(db:with-connection (*db-connection*
+                        :sqlite3
+                        :database-name (u:native-namestring ,path))
+     ,@body))
 
-(defun initialize-database (&optional (path *db-path*))
+(defun initialize-database (path)
   "Initialize the database with the required schema."
   (with-database (path)
     (dolist (statement *schema*)
       (db:do-sql *db-connection* statement))
-    (format t "Database initialized at: ~A~%" path)))
+    (format t "~%Database initialized at: ~A~%~%" path)
+    (format nil "Database initialized at: ~A~%" path)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Deployment Recording
 ;;;
+
 (defun record-deployment (manager &key notes)
   "Record a new deployment from MANAGER, returning the deployment ID.
 Call this BEFORE deploy-configs to create the deployment record,
@@ -164,8 +161,10 @@ then update action statuses as deployment proceeds."
     (list status deployment-id)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; History Queries
 ;;;
+
 (defun get-deployment-history (&key (limit 20) (offset 0))
   "Get recent deployment history."
   (db:fetch-all
@@ -205,8 +204,10 @@ then update action statuses as deployment proceeds."
       (get-deployment-by-id (getf row :|id|)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Configuration Snapshots
 ;;;
+
 (defun save-config-snapshot (manager name &key description)
   "Save current manager configuration as a named snapshot."
   (let ((snapshot-id
@@ -255,8 +256,10 @@ then update action statuses as deployment proceeds."
     (list limit))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Rollback Support
 ;;;
+
 (defun rollback-deployment (deployment-id &key dry-run)
   "Attempt to rollback a deployment by reversing its actions.
 For symlinks: remove the symlink
@@ -288,8 +291,10 @@ If DRY-RUN is true, only report what would be done."
       (values rolled-back (length actions)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Integration with config-manager
 ;;;
+
 (defun deploy-with-history (manager &key notes verbose)
   "Deploy configurations and record in database.
 Returns (values deployment-id results)."

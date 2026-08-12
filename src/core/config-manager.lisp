@@ -149,9 +149,9 @@ Replaces existing config with same name."
   "Add multiple config entries to MGR from SPEC.
 SPEC is a list of entries, each shaped as add-config's own argument
 list: (name source place &key spec type validate). Returns the names
-of the configs added, in reverse of SPEC's order."
+of the configs added, in SPEC's order."
   (labels ((rec (spec acc)
-             (if (null spec) acc
+             (if (null spec) (nreverse acc)
                  (let ((entry (first spec)))
                    (apply #'add-config mgr entry)
                    (setf acc (cons (first entry) acc))
@@ -242,20 +242,20 @@ Returns a list of performed actions:
                 (:copy
                  ;; Handle backup for copy operations
                  (when (and do-backup 
-                            (file-exists-p dst)
+                            (u:file-exists-p dst)
                             (not (symlinkp dst)))
                    (let ((backup (make-pathname 
                                   :defaults dst
                                   :type (format nil "~A.bak" 
                                                 (or (pathname-type dst) "")))))
-                     (rename-file-overwriting-target dst backup)))
+                     (ufs:rename-file-overwriting-target dst backup)))
                  ;; Remove existing symlink if destination is a symlink
                  (when (symlinkp dst)
                    (delete-file dst))
                  ;; Perform copy
                  (if (eq type :directory)
                      (copy-directory src dst :overwrite t)
-                     (copy-file src dst)))))
+                     (u:copy-file src dst)))))
           
           (error (e)
             (setf status :failed
@@ -299,6 +299,7 @@ Returns a list of performed actions:
 
 (defmethod print-object ((config config-object) stream)
   "Colorized pretty-print a CONFIG-OBJECT in #<> form for REPL and debugging."
+  (write-string (color :grey) stream)
   (print-unreadable-object (config stream :type t)
     (format stream "~A~A ~A[~A~A ~A~A ~A~A~A] ~A~A ~A~A ~A~A ~A"
             (color :magenta) (config-name config)
@@ -309,7 +310,8 @@ Returns a list of performed actions:
             (color :yellow) (config-source config)
             (color :reset) (color :arrow)
             (color :cyan) (config-place config)
-            (color :grey))))
+            (color :grey)))
+  (write-string (color :reset) stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
