@@ -2,14 +2,14 @@
   (:use :cl)
   (:import-from :sojrn/utils/syntax
                 #:nlet)
-  (:import-from :sojrn/user-config
+  (:import-from :sojrn/startup
                 #:*user-sojrn-directory*
                 #:*sojrn-cache-directory*
                 #:*sojrn-db-status*
                 #:*user-config-loaded*
                 #:*config-spec*
                 #:*config-mgr*)
-  (:import-from :sojrn/deployment
+  (:import-from :sojrn/persistence
                 #:outline
                 #:deploy)
   (:import-from :sojrn/ui/app

@@ -1,8 +1,8 @@
-(defpackage :sojrn/user-config
+(defpackage :sojrn/startup
   (:use :cl
         :sojrn/core/config-manager
-        :sojrn/core/persistence
-        :sojrn/deployment)
+        :sojrn/core/database
+        :sojrn/persistence)
   ;; User Config API
   (:export #:*config-mgr*
            #:*user-sojrn-directory*
@@ -11,10 +11,9 @@
   ;; Cache/Persistence API
   (:export #:*sojrn-db-status*
            #:*sojrn-cache-directory*)
+  (:documentation "Handles Sojrn's startup sequence."))
 
-  (:documentation "Default configuration manager and config spec."))
-
-(in-package :sojrn/user-config)
+(in-package :sojrn/startup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -45,7 +44,7 @@ deployment database).")
   "Default path for the SQLite database.")
 
 (defvar *sojrn-db-status* nil
-  "Status message from the most recent database initiliaztion.")
+  "Status message from the most recent database initiliazation.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

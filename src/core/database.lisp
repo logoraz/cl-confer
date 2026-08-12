@@ -1,4 +1,4 @@
-(defpackage :sojrn/core/persistence
+(defpackage :sojrn/core/database
   (:use :cl
         :sojrn/core/config-manager)
   (:import-from :uiop/filesystem
@@ -35,7 +35,7 @@ This module provides:
 Requires: cl-dbi (SQLite3 backend)
 "))
 
-(in-package :sojrn/core/persistence)
+(in-package :sojrn/core/database)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

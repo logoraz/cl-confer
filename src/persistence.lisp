@@ -1,7 +1,7 @@
-(defpackage :sojrn/deployment
+(defpackage :sojrn/persistence
   (:use :cl
         :sojrn/core/config-manager
-        :sojrn/core/persistence
+        :sojrn/core/database
         :sojrn/utils/ansi-color)
   ;; Basic Setup
   (:export #:outline
@@ -14,9 +14,9 @@
            #:save-snapshot
            #:load-snapshot
            #:snapshots)
-  (:documentation "Deployment, history, and snapshot API."))
+  (:documentation "Deployment lifecycle: deploy, track, roll-back, snapshot."))
 
-(in-package :sojrn/deployment)
+(in-package :sojrn/persistence)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
