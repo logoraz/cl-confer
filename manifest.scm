@@ -2,11 +2,8 @@
 ;;
 ;; Run:
 ;;
-;; guix shell -m manifest.scm
+;; guix shell -m manifest.scm -- sbcl
 ;;
-;; export LD_LIBRARY_PATH="$GUIX_ENVIRONMENT/lib"
-;;
-;; sbcl
 ;;
 
 (use-modules (gnu packages))

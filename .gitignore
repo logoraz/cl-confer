@@ -1,19 +1,20 @@
 # root
-.vscode
 /ocicl/*
-*.db
 
 ## source
 /core/ocicl/*
 
 ## libraries
-/libraries/ocicl/*
 /libraries/learncl/ocicl/*
-/libraries/confr/ocicl/*
-/libraries/cl-rpm/ocicl/*
 
 ## rcfiles
 /files/ocicl/*
 
 ## tests
 /tests/ocicl/*
+
+## distribution
+/dist/*
+
+## TODO items
+/todo/*

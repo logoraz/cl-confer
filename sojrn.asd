@@ -3,7 +3,8 @@
   :author "Erik P Almaraz <erikalmaraz@fastmail.com>"
   :license "Apache-2.0"
   :version (:read-file-form "version.sexp" :at (0 1))
-  :class :package-inferred-system
+  :defsystem-depends-on ("sojrn-asdf-system")
+  :class "sojrn-package-inferred-system"
   :pathname "src"
   :depends-on
   ("sojrn/sojrn")
@@ -37,7 +38,8 @@ tracking.
 
 (defsystem "sojrn/executable"
   :description "Build executable"
+  :class "sojrn-exec-system"
   :depends-on ("sojrn")
   :build-operation "program-op"
-  :build-pathname "sojrn-preexe"
+  :build-pathname "dist/sojrn"
   :entry-point "sojrn:main")
