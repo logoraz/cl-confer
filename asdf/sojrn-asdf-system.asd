@@ -7,5 +7,8 @@
   :components
   ((:module "src"
     :components
-    ((:file "system"))))
+    ((:file "package")
+     (:file "classes" :depends-on ("package"))
+     (:file "cffi-path" :depends-on ("classes"))
+     (:file "exec-hooks" :depends-on ("cffi-path")))))
   :long-description "ASDF System Extension for sojrn.")

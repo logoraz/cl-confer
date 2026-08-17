@@ -1,5 +1,15 @@
 # API Reference
 
+## Package SOJRN-ASDF-SYSTEM
+
+### `SOJRN-EXEC-SYSTEM` (type)
+System class for Sojrn executable build.
+
+### `SOJRN-PACKAGE-INFERRED-SYSTEM` (type)
+Base system class for Sojrn.
+
+## Package SOJRN-TESTS/SUITE
+
 ## Package SOJRN/STARTUP
 
 ### `*USER-CONFIG-LOADED*` (variable)
@@ -227,14 +237,6 @@ Create and run a minimal GTK4 application window with a close button.
 
 ### `CONCAT` (function)
 Shorthand for CONCATENATE specialized for strings.
-
-## Package SOJRN-ASDF-SYSTEM/SYSTEM
-
-### `SOJRN-EXEC-SYSTEM` (type)
-System class for Sojrn executable build.
-
-### `SOJRN-PACKAGE-INFERRED-SYSTEM` (type)
-Base system class for Sojrn.
 
 ## Package SOJRN-DOCS/GENERATOR
 

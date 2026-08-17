@@ -54,7 +54,7 @@ project. Next install =ocicl=. Vendoring of =cl-cffi-gtk4= and =cl-cffi-gdk-pixb
 handled in =bootstrap.lisp=. The sojrn system load/build is supported by
 =:sojrn-package-inferred-system= class which sets up the CFFI environment setting
 =LD_LIBRARY_PATH= for both Linux and Windows. This is implmented in the ASDF system
-extension =:sojrn-asdf-system=.
+extension =sojrn-asdf-system=.
 
 The document generation system automates api listing listing functions and their
 associated docstrings. More to come on more comprehensive documentation
@@ -62,24 +62,24 @@ generation.
 
 The executable build system is handled by the subsystem =:sojrn/executable= and
 whose inner workings are implmented in our ASDF extension system
-=:sojrn-asdf-system= class =:sojrn-exec-system=.
+=sojrn-asdf-system= class =:sojrn-exec-system=.
 
 #+begin_src lisp
 
   ;; Build System
-  (asdf:load-system :sojrn)
+  (asdf:load-system "sojrn")
 
   ;; Test System
-  (asdf:test-system :sojrn-tests)
+  (asdf:test-system "sojrn")
 
   ;; Generate Documentation (WIP)
-  (asdf:load-system :sojrn-docs)
+  (asdf:load-system "sojrn-docs")
 
   ;; Create Executable (WIP)
-  (asdf:make :sojrn/executable)
+  (asdf:make "sojrn/executable")
 
   ;; Build Libraries/Extensions (WIP)
-  (asdf:load-system :sojrn/libraries)
+  (asdf:load-system "sojrn/libraries")
 
 #+end_src
 
@@ -109,7 +109,7 @@ and then deploy (the default manager instance is defined in =*config-mgr*=):
   ;; Defaults
 
   ;; cd to ~/Work/sojrn/ (or location of this repo)
-  (asdf:load-system :sojrn)
+  (asdf:load-system "sojrn")
   ;; First visualize your deployment plan
   (sojrn:outline sojrn:*config-mgr*)
   ;; Deploy!
@@ -131,7 +131,7 @@ Then you can run the currently simple UI as follows:
 #+begin_src lisp
 
   ;; Re-run to finish building successfully
-  (asdf:load-system :sojrn)
+  (asdf:load-system "sojrn")
   (sojrn:main)
 
 #+end_src
