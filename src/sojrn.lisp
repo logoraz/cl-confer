@@ -1,4 +1,4 @@
-(defpackage :sojrn
+(uiop:define-package :sojrn
   (:use :cl)
   (:import-from :sojrn/utils/syntax
                 #:nlet)

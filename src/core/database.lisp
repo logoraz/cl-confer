@@ -1,4 +1,4 @@
-(defpackage :sojrn/core/database
+(uiop:define-package :sojrn/core/database
   (:use :cl
         :sojrn/core/config-manager)
   (:import-from :uiop/filesystem

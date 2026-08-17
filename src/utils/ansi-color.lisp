@@ -1,4 +1,4 @@
-(defpackage :sojrn/utils/ansi-color
+(uiop:define-package :sojrn/utils/ansi-color
   (:use :cl
         :sojrn/utils/syntax
         :trivial-gray-streams)

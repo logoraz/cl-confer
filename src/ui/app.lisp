@@ -1,4 +1,4 @@
-(defpackage :sojrn/ui/app
+(uiop:define-package :sojrn/ui/app
   (:use :cl)
   (:import-from :gtk
                 #:application

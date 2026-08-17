@@ -1,4 +1,4 @@
-(defpackage :sojrn/persistence
+(uiop:define-package :sojrn/persistence
   (:use :cl
         :sojrn/core/config-manager
         :sojrn/core/database

@@ -1,4 +1,4 @@
-(defpackage :sojrn-docs/generator
+(uiop:define-package :sojrn-docs/generator
   (:nicknames #:docs)
   (:use :cl
         :sojrn)

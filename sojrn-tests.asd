@@ -11,4 +11,4 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Register External Systems
-(register-system-packages "fiveam" '("5AM"))
+(register-system-packages "fiveam" '(:5am))

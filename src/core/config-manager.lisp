@@ -1,4 +1,4 @@
-(defpackage :sojrn/core/config-manager
+(uiop:define-package :sojrn/core/config-manager
   (:use :cl
         :sojrn/utils/ansi-color)
   (:import-from :osicat

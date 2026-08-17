@@ -4,7 +4,7 @@
   :pathname "docs"
   :depends-on ("sojrn-docs/generator")
   :perform (build-op (o c)
-                     (symbol-call 'sojrn-docs/generator 'build-docs)))
+                     (symbol-call :sojrn-docs/generator :build-docs)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

@@ -1,4 +1,4 @@
-(defpackage :sojrn-tests/suite
+(uiop:define-package :sojrn-tests/suite
   (:use :cl
         :5am
         :sojrn/utils/syntax

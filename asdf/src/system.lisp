@@ -1,10 +1,10 @@
-(defpackage #:sojrn-asdf-system/system
-  (:use #:cl #:asdf #:uiop)
+(uiop:define-package :sojrn-asdf-system/system
+  (:use :cl :asdf :uiop)
   (:export #:sojrn-package-inferred-system
            #:sojrn-exec-system)
   (:documentation "ASDF extension system for sojrn."))
 
-(in-package #:sojrn-asdf-system/system)
+(in-package :sojrn-asdf-system/system)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

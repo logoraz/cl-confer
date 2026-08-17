@@ -1,4 +1,4 @@
-(defpackage :sojrn/utils/syntax
+(uiop:define-package :sojrn/utils/syntax
   (:use :cl)
   (:export #:concat)
   (:documentation "Syntactic Language Extensions."))

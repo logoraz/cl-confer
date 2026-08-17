@@ -1,4 +1,4 @@
-(defpackage :sojrn/startup
+(uiop:define-package :sojrn/startup
   (:use :cl
         :sojrn/core/config-manager
         :sojrn/core/database
