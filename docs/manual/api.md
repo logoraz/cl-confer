@@ -238,11 +238,6 @@ Create and run a minimal GTK4 application window with a close button.
 ### `CONCAT` (function)
 Shorthand for CONCATENATE specialized for strings.
 
-## Package SOJRN-DOCS/GENERATOR
-
-### `BUILD-DOCS` (function)
-Documentation builder for sojrn.
-
 ## Package SOJRN/UTILS/ANSI-COLOR
 
 ### `COLOR` (function)

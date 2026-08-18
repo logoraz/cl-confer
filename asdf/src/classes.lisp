@@ -10,6 +10,9 @@
 (defclass sojrn-exec-system (asdf:package-inferred-system) ()
   (:documentation "System class for Sojrn executable build."))
 
+(defclass sojrn-doc-system (asdf:package-inferred-system) ()
+  (:documentation "System class for Sojrn documentation generation."))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Export to ASDF
@@ -18,5 +21,9 @@
 ;; in .asd definitions (mirrors CFFI-Grovel's :cffi-wrapper-file pattern).
 (setf (find-class 'asdf::sojrn-package-inferred-system)
       (find-class 'sojrn-package-inferred-system))
+
 (setf (find-class 'asdf::sojrn-exec-system)
       (find-class 'sojrn-exec-system))
+
+(setf (find-class 'asdf::sojrn-doc-system)
+      (find-class 'sojrn-doc-system))

@@ -35,10 +35,14 @@ tracking.
   :description "Extra libraries to bring in if needed"
   :depends-on ("learn-cl"))
 
+(defsystem "sojrn/docs"
+  :class :sojrn-doc-system
+  :depends-on ("sojrn"))
+
 (defsystem "sojrn/executable"
   :description "Build executable"
   :class :sojrn-exec-system
-  :depends-on ("sojrn/sojrn")
+  :depends-on ("sojrn")
   :build-operation "program-op"
   :build-pathname "dist/sojrn"
   :entry-point "sojrn:main")
