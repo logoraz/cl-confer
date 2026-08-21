@@ -1,6 +1,6 @@
-(uiop:define-package :sojrn/utils/ansi-color
+(uiop:define-package :sojrn/lib/ansi-color
   (:use :cl
-        :sojrn/utils/syntax
+        :sojrn/lib/syntax
         :trivial-gray-streams)
   (:import-from :cl-ppcre
                 #:regex-replace-all)
@@ -16,7 +16,7 @@
            #:strip-ansi)
   (:documentation "ANSI Color support for CLI."))
 
-(in-package :sojrn/utils/ansi-color)
+(in-package :sojrn/lib/ansi-color)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

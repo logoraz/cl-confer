@@ -1,9 +1,10 @@
-(uiop:define-package :sojrn/utils/syntax
+(uiop:define-package :sojrn/lib/syntax
   (:use :cl)
-  (:export #:concat)
+  (:export #:concat
+           #:nlet)
   (:documentation "Syntactic Language Extensions."))
 
-(in-package :sojrn/utils/syntax)
+(in-package :sojrn/lib/syntax)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -15,7 +16,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Learning...
+;;; Macros
 
 (defmacro nlet (name bindings &body body)
   `(labels ((,name ,(mapcar #'car bindings) ,@body))

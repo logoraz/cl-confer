@@ -1,6 +1,6 @@
 (uiop:define-package :sojrn/core/config-manager
   (:use :cl
-        :sojrn/utils/ansi-color)
+        :sojrn/lib/ansi-color)
   (:import-from :osicat
                 #:make-link
                 #:read-link
@@ -150,13 +150,9 @@ Replaces existing config with same name."
 SPEC is a list of entries, each shaped as add-config's own argument
 list: (name source place &key spec type validate). Returns the names
 of the configs added, in SPEC's order."
-  (labels ((rec (spec acc)
-             (if (null spec) (nreverse acc)
-                 (let ((entry (first spec)))
-                   (apply #'add-config mgr entry)
-                   (setf acc (cons (first entry) acc))
-                   (rec (rest spec) acc)))))
-    (rec spec '())))
+  (loop :for entry :in spec
+        :do (apply #'add-config mgr entry)
+        :collect (first entry)))
 
 (defmethod remove-config ((manager config-manager) (name string))
   "Remove config by name."

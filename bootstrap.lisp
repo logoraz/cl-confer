@@ -33,26 +33,21 @@ Returns T if symlink was created, NIL if it already existed and FORCE was nil."
 (defun vendor-deps (deps)
   "Vendor dependencies, DEPS ((system-name . git-urls) ...), to ocicl directory."
   (let ((ocicl-dir (merge-pathnames #P"ocicl/" (uiop:getcwd))))
-    (labels ((vend (deps acc)
-               (if (null deps) acc
-                   (let* ((system-name (car (first deps)))
-                          (git-url (cdr (first deps)))
-                         (target-dir (merge-pathnames
-                                      (concatenate 'string system-name "/")
-                                      ocicl-dir)))
-                     (if (probe-file target-dir)
-                         (uiop:delete-directory-tree target-dir :validate t))
-                     (format t "~%Vendoring: ~A -> ~A~%" git-url target-dir)
-                     (force-output)
-                     (uiop:run-program
-                      (concatenate 'string "git clone "
-                                   git-url " "
-                                   (uiop:native-namestring target-dir))
-                      :output t
-                      :error-output t)
-                     (setf acc (cons system-name acc))
-                     (vend (rest deps) acc)))))
-      (vend deps '()))))
+    (loop :for (system-name . git-url) :in deps
+          :for target-dir := (merge-pathnames
+                               (concatenate 'string system-name "/")
+                               ocicl-dir)
+          :do (when (probe-file target-dir)
+                (uiop:delete-directory-tree target-dir :validate t))
+              (format t "~%Vendoring: ~A -> ~A~%" git-url target-dir)
+              (force-output)
+              (uiop:run-program
+               (concatenate 'string "git clone "
+                            git-url " "
+                            (uiop:native-namestring target-dir))
+               :output t
+               :error-output t)
+          :collect system-name)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

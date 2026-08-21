@@ -1,7 +1,7 @@
 (uiop:define-package :sojrn-tests/suite
   (:use :cl
         :5am
-        :sojrn/utils/syntax
+        :sojrn/lib/syntax
         :sojrn)
   (:export )
   (:documentation "Base Test Suite"))

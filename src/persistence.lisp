@@ -2,7 +2,7 @@
   (:use :cl
         :sojrn/core/config-manager
         :sojrn/core/database
-        :sojrn/utils/ansi-color)
+        :sojrn/lib/ansi-color)
   ;; Basic Setup
   (:export #:outline
            #:deploy)
