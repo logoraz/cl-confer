@@ -8,6 +8,28 @@
 
 <h1>API Reference</h1>
 
+<h2>Package SOJRN/LIB/ANSI-COLOR</h2>
+
+<h3><code>COLOR</code> (function)</h3>
+
+<p>Return concatenated ANSI codes for COMMANDS.</p>
+
+<h3><code>COLORED-STREAM</code> (type)</h3>
+
+<p>A Gray stream that adds ANSI colors to output.</p>
+
+<h3><code>STRIP-ANSI</code> (function)</h3>
+
+<p>Remove ANSI escape codes from string S.</p>
+
+<h3><code>*USE-UNICODE-ARROWS*</code> (variable)</h3>
+
+<p>Use Unicode arrows (→) when T and terminal supports it.</p>
+
+<h3><code>ARROW</code> (function)</h3>
+
+<p>Return arrow string based on Unicode support.</p>
+
 <h2>Package SOJRN-ASDF-SYSTEM</h2>
 
 <h3><code>SOJRN-EXEC-SYSTEM</code> (type)</h3>
@@ -269,55 +291,21 @@ of the configs added, in SPEC's order.</p>
 
 <h2>Package SOJRN</h2>
 
-<h3><code>SIMPLE-TEST</code> (function)</h3>
-
-<p>Simple iteration example illustrating loop.</p>
-
-<h3><code>SIMPLE-TEST3</code> (function)</h3>
-
-<p>Simple iteration example illustration recursion using custom nlet macro.</p>
-
 <h3><code>MAIN</code> (function)</h3>
 
 <p>Main entry point for the executable.</p>
 
-<h3><code>SIMPLE-TEST2</code> (function)</h3>
+<h2>Package SOJRN/LIB/SYNTAX</h2>
 
-<p>Simple iteration example illustration recursion using labels</p>
+<h3><code>CONCAT</code> (function)</h3>
+
+<p>Shorthand for CONCATENATE specialized for strings.</p>
 
 <h2>Package SOJRN/UI/APP</h2>
 
 <h3><code>SOJRN-APP</code> (function)</h3>
 
 <p>Create and run a minimal GTK4 application window with a close button.</p>
-
-<h2>Package SOJRN/UTILS/SYNTAX</h2>
-
-<h3><code>CONCAT</code> (function)</h3>
-
-<p>Shorthand for CONCATENATE specialized for strings.</p>
-
-<h2>Package SOJRN/UTILS/ANSI-COLOR</h2>
-
-<h3><code>COLOR</code> (function)</h3>
-
-<p>Return concatenated ANSI codes for COMMANDS.</p>
-
-<h3><code>COLORED-STREAM</code> (type)</h3>
-
-<p>A Gray stream that adds ANSI colors to output.</p>
-
-<h3><code>STRIP-ANSI</code> (function)</h3>
-
-<p>Remove ANSI escape codes from string S.</p>
-
-<h3><code>*USE-UNICODE-ARROWS*</code> (variable)</h3>
-
-<p>Use Unicode arrows (→) when T and terminal supports it.</p>
-
-<h3><code>ARROW</code> (function)</h3>
-
-<p>Return arrow string based on Unicode support.</p>
 
 <h1>SOJRN System Internals</h1>
 

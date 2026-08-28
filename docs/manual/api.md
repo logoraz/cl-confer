@@ -1,5 +1,22 @@
 # API Reference
 
+## Package SOJRN/LIB/ANSI-COLOR
+
+### `COLOR` (function)
+Return concatenated ANSI codes for COMMANDS.
+
+### `COLORED-STREAM` (type)
+A Gray stream that adds ANSI colors to output.
+
+### `STRIP-ANSI` (function)
+Remove ANSI escape codes from string S.
+
+### `*USE-UNICODE-ARROWS*` (variable)
+Use Unicode arrows (→) when T and terminal supports it.
+
+### `ARROW` (function)
+Return arrow string based on Unicode support.
+
 ## Package SOJRN-ASDF-SYSTEM
 
 ### `SOJRN-EXEC-SYSTEM` (type)
@@ -216,42 +233,16 @@ Creates DEST if it doesn't exist. Copies all files and subdirectories.
 
 ## Package SOJRN
 
-### `SIMPLE-TEST` (function)
-Simple iteration example illustrating loop.
-
-### `SIMPLE-TEST3` (function)
-Simple iteration example illustration recursion using custom nlet macro.
-
 ### `MAIN` (function)
 Main entry point for the executable.
 
-### `SIMPLE-TEST2` (function)
-Simple iteration example illustration recursion using labels
+## Package SOJRN/LIB/SYNTAX
+
+### `CONCAT` (function)
+Shorthand for CONCATENATE specialized for strings.
 
 ## Package SOJRN/UI/APP
 
 ### `SOJRN-APP` (function)
 Create and run a minimal GTK4 application window with a close button.
-
-## Package SOJRN/UTILS/SYNTAX
-
-### `CONCAT` (function)
-Shorthand for CONCATENATE specialized for strings.
-
-## Package SOJRN/UTILS/ANSI-COLOR
-
-### `COLOR` (function)
-Return concatenated ANSI codes for COMMANDS.
-
-### `COLORED-STREAM` (type)
-A Gray stream that adds ANSI colors to output.
-
-### `STRIP-ANSI` (function)
-Remove ANSI escape codes from string S.
-
-### `*USE-UNICODE-ARROWS*` (variable)
-Use Unicode arrows (→) when T and terminal supports it.
-
-### `ARROW` (function)
-Return arrow string based on Unicode support.
 
