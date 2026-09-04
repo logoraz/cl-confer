@@ -17,15 +17,7 @@ Use Unicode arrows (→) when T and terminal supports it.
 ### `ARROW` (function)
 Return arrow string based on Unicode support.
 
-## Package SOJRN-ASDF-SYSTEM
-
-### `SOJRN-EXEC-SYSTEM` (type)
-System class for Sojrn executable build.
-
-### `SOJRN-PACKAGE-INFERRED-SYSTEM` (type)
-Base system class for Sojrn.
-
-## Package SOJRN-TESTS/SUITE
+## Package SOJRN-ASDF-SYSTEM/CFFI-PATH
 
 ## Package SOJRN/STARTUP
 
@@ -112,6 +104,17 @@ Example:
   (history)        ; Show last 10 deployments
   (history :limit 5) ; Show last 5 deployments
 
+## Package SOJRN-ASDF-SYSTEM/CLASSES
+
+### `SOJRN-EXEC-SYSTEM` (type)
+System class for Sojrn executable build.
+
+### `SOJRN-DOC-SYSTEM` (type)
+System class for Sojrn documentation generation.
+
+### `SOJRN-ASDF-SYSTEM-EXTENSION` (type)
+Base system class for Sojrn.
+
 ## Package SOJRN/CORE/DATABASE
 
 ### `RECORD-DEPLOYMENT` (function)
@@ -154,6 +157,17 @@ Load a snapshot into MANAGER, replacing current configs.
 
 ### `SAVE-CONFIG-SNAPSHOT` (function)
 Save current manager configuration as a named snapshot.
+
+## Package SOJRN-ASDF-SYSTEM/EXEC-HOOKS
+
+## Package SOJRN-ASDF-SYSTEM/DOCS
+
+### `BUILD-DOCS` (function)
+Documentation builder for SYSTEM, driven by its primary system name.
+
+### `GENERATE-API-MD` (function)
+Generate an API reference in Markdown by extracting docstrings
+from PACKAGES and writing them to OUTPUT-FILE.
 
 ## Package SOJRN/CORE/CONFIG-MANAGER
 
@@ -245,4 +259,6 @@ Shorthand for CONCATENATE specialized for strings.
 
 ### `SOJRN-APP` (function)
 Create and run a minimal GTK4 application window with a close button.
+
+## Package SOJRN/TESTS/SUITE
 

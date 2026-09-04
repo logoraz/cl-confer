@@ -30,17 +30,7 @@
 
 <p>Return arrow string based on Unicode support.</p>
 
-<h2>Package SOJRN-ASDF-SYSTEM</h2>
-
-<h3><code>SOJRN-EXEC-SYSTEM</code> (type)</h3>
-
-<p>System class for Sojrn executable build.</p>
-
-<h3><code>SOJRN-PACKAGE-INFERRED-SYSTEM</code> (type)</h3>
-
-<p>Base system class for Sojrn.</p>
-
-<h2>Package SOJRN-TESTS/SUITE</h2>
+<h2>Package SOJRN-ASDF-SYSTEM/CFFI-PATH</h2>
 
 <h2>Package SOJRN/STARTUP</h2>
 
@@ -142,6 +132,20 @@ Set DRY-RUN to NIL to actually perform the rollback.</p>
   (history)        ; Show last 10 deployments
   (history :limit 5) ; Show last 5 deployments</p>
 
+<h2>Package SOJRN-ASDF-SYSTEM/CLASSES</h2>
+
+<h3><code>SOJRN-EXEC-SYSTEM</code> (type)</h3>
+
+<p>System class for Sojrn executable build.</p>
+
+<h3><code>SOJRN-DOC-SYSTEM</code> (type)</h3>
+
+<p>System class for Sojrn documentation generation.</p>
+
+<h3><code>SOJRN-ASDF-SYSTEM-EXTENSION</code> (type)</h3>
+
+<p>Base system class for Sojrn.</p>
+
 <h2>Package SOJRN/CORE/DATABASE</h2>
 
 <h3><code>RECORD-DEPLOYMENT</code> (function)</h3>
@@ -195,6 +199,19 @@ Automatically handles connection opening and closing. PATH is required.</p>
 <h3><code>SAVE-CONFIG-SNAPSHOT</code> (function)</h3>
 
 <p>Save current manager configuration as a named snapshot.</p>
+
+<h2>Package SOJRN-ASDF-SYSTEM/EXEC-HOOKS</h2>
+
+<h2>Package SOJRN-ASDF-SYSTEM/DOCS</h2>
+
+<h3><code>BUILD-DOCS</code> (function)</h3>
+
+<p>Documentation builder for SYSTEM, driven by its primary system name.</p>
+
+<h3><code>GENERATE-API-MD</code> (function)</h3>
+
+<p>Generate an API reference in Markdown by extracting docstrings
+from PACKAGES and writing them to OUTPUT-FILE.</p>
 
 <h2>Package SOJRN/CORE/CONFIG-MANAGER</h2>
 
@@ -306,6 +323,8 @@ of the configs added, in SPEC's order.</p>
 <h3><code>SOJRN-APP</code> (function)</h3>
 
 <p>Create and run a minimal GTK4 application window with a close button.</p>
+
+<h2>Package SOJRN/TESTS/SUITE</h2>
 
 <h1>SOJRN System Internals</h1>
 

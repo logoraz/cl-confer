@@ -4,14 +4,46 @@
   :license "Apache-2.0"
   :version (:read-file-form "version.sexp" :at (0 1))
   :defsystem-depends-on ("sojrn-asdf-system")
-  :class :sojrn-package-inferred-system
-  :pathname "src"
-  :depends-on ("sojrn/sojrn")
-  :in-order-to ((test-op (test-op "sojrn-tests")))
+  :class :sojrn-asdf-system-extension
+  :depends-on ("bordeaux-threads"
+               "cl-ppcre"
+               "trivial-gray-streams"
+               "osicat"
+               "cl-dbi"
+               "cl-cffi-gtk4"
+               "cl-cffi-glib"
+               "cl-cffi-gdk-pixbuf"
+               "cl-cffi-graphene"
+               "cl-cffi-pango"
+               "cl-cffi-cairo"
+               ;; Internal Systems
+               "learn-cl")
+  :components
+  ((:module "src"
+    :components
+    ((:module "lib"
+      :components
+      ((:file "syntax")
+       (:file "ansi-color" :depends-on ("syntax"))))
+     (:module "core"
+      :depends-on ("lib")
+      :components
+      ((:file "config-manager")
+       (:file "database"       :depends-on ("config-manager"))))
+     (:module "ui"
+      :depends-on ("lib" "core") ; future depedencies
+      :components
+      ((:file "app")))
+     (:file "persistence" :depends-on ("core" "lib"))
+     (:file "startup"     :depends-on ("core" "persistence"))
+     (:file "sojrn"       :depends-on ("startup" "persistence" "ui")))))
+
+  :in-order-to ((test-op (test-op "sojrn/tests")))
   :long-description "
 Declarative dotfile/config deployment for Common Lisp, with persisted state
 tracking.
 ")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -19,6 +51,7 @@ tracking.
 
 (register-system-packages "bordeaux-threads"   '(:bt :bt2))
 (register-system-packages "cl-dbi"             '(:dbi))
+(register-system-packages "fiveam"             '(:5am))
 (register-system-packages "cl-cffi-gtk4"       '(:gtk :gdk))
 ;; cl-cffi-gtk4 dependencies
 (register-system-packages "cl-cffi-glib"       '(:gobject :glib :gio))
@@ -26,6 +59,7 @@ tracking.
 (register-system-packages "cl-cffi-graphene"   '(:graphene))
 (register-system-packages "cl-cffi-pango"      '(:pango))
 (register-system-packages "cl-cffi-cairo"      '(:cairo))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -35,9 +69,24 @@ tracking.
   :description "Extra libraries to bring in if needed"
   :depends-on ("learn-cl"))
 
+
 (defsystem "sojrn/docs"
   :class :sojrn-doc-system
   :depends-on ("sojrn"))
+
+
+(defsystem "sojrn/tests"
+  :description "Unit tests"
+  :depends-on ("sojrn"
+               "fiveam")
+  :components
+  ((:module "tests"
+    :components
+    ((:file "suite"))))
+  :perform (test-op (o c)
+                    (symbol-call :fiveam :run!
+                                 (find-symbol "SUITE" :sojrn/tests/suite))))
+
 
 (defsystem "sojrn/executable"
   :description "Build executable"

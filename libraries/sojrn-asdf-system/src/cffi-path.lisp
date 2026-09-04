@@ -1,4 +1,10 @@
-(in-package :sojrn-asdf-system)
+(uiop:define-package :sojrn-asdf-system/cffi-path
+  (:use :cl :asdf :uiop)
+  (:export #+linux #:configure-guix-cffi-path
+           #+windows #:configure-windows-cffi-path)
+  (:documentation "cffi-path extensions."))
+
+(in-package :sojrn-asdf-system/cffi-path)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

@@ -1,4 +1,12 @@
-(in-package :sojrn-asdf-system)
+(uiop:define-package :sojrn-asdf-system/docs
+  (:use :cl :asdf :uiop)
+  (:import-from :sojrn-asdf-system/classes
+                #:sojrn-doc-system)
+  (:export #:generate-api-md
+           #:build-docs)
+  (:documentation "Extension for documentation generation."))
+
+(in-package :sojrn-asdf-system/docs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

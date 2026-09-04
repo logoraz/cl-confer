@@ -30,24 +30,49 @@ Returns T if symlink was created, NIL if it already existed and FORCE was nil."
     (sb-posix:symlink source-path target-path)
     t))
 
+(defun vendor-sparse-dep (url sparse-path target-dir)
+  "Clone URL with a sparse checkout of SPARSE-PATH only, placing its
+contents at TARGET-DIR."
+  (let ((tmp-dir (merge-pathnames
+                   (format nil "~A-sparse-tmp/" (gensym))
+                   (uiop:temporary-directory))))
+    (uiop:run-program
+     (list "git" "clone" "--filter=blob:none" "--no-checkout"
+           url (uiop:native-namestring tmp-dir))
+     :output t :error-output t)
+    (uiop:run-program
+     (list "git" "-C" (uiop:native-namestring tmp-dir)
+           "sparse-checkout" "set" sparse-path)
+     :output t :error-output t)
+    (uiop:run-program
+     (list "git" "-C" (uiop:native-namestring tmp-dir) "checkout")
+     :output t :error-output t)
+    (uiop:run-program
+     (list "cp" "-r"
+           (uiop:native-namestring (merge-pathnames sparse-path tmp-dir))
+           (uiop:native-namestring target-dir))
+     :output t :error-output t)
+    (uiop:delete-directory-tree tmp-dir :validate t)))
+
 (defun vendor-deps (deps)
-  "Vendor dependencies, DEPS ((system-name . git-urls) ...), to ocicl directory."
+  "Vendor dependencies, DEPS ((name url &key sparse) ...), to ocicl directory."
   (let ((ocicl-dir (merge-pathnames #P"ocicl/" (uiop:getcwd))))
-    (loop :for (system-name . git-url) :in deps
-          :for target-dir := (merge-pathnames
-                               (concatenate 'string system-name "/")
-                               ocicl-dir)
-          :do (when (probe-file target-dir)
-                (uiop:delete-directory-tree target-dir :validate t))
-              (format t "~%Vendoring: ~A -> ~A~%" git-url target-dir)
-              (force-output)
-              (uiop:run-program
-               (concatenate 'string "git clone "
-                            git-url " "
-                            (uiop:native-namestring target-dir))
-               :output t
-               :error-output t)
-          :collect system-name)))
+    (loop :for entry :in deps
+          :collect (destructuring-bind (name url &key sparse) entry
+                     (let ((target-dir (merge-pathnames
+                                        (concatenate 'string name "/")
+                                        ocicl-dir)))
+                       (when (probe-file target-dir)
+                         (uiop:delete-directory-tree target-dir :validate t))
+                       (format t "~%Vendoring: ~A -> ~A~%" url target-dir)
+                       (force-output)
+                       (if sparse
+                           (vendor-sparse-dep url sparse target-dir)
+                           (uiop:run-program
+                            (list "git" "clone" url
+                                  (uiop:native-namestring target-dir))
+                            :output t :error-output t))
+                       name)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -76,8 +101,8 @@ properly configured, and then installs dependencies with ocicl."
 
     ;; Vendor broken ocicl registries: `cl-cffi-gtk4' and `cl-cffi-gdk-pixbuf'
     (vendor-deps
-     '(("cl-cffi-gtk4"       . "https://github.com/crategus/cl-cffi-gtk4.git")
-       ("cl-cffi-gdk-pixbuf" . "https://github.com/crategus/cl-cffi-gdk-pixbuf.git")))
+     '(("cl-cffi-gtk4"       "https://github.com/crategus/cl-cffi-gtk4.git")
+       ("cl-cffi-gdk-pixbuf" "https://github.com/crategus/cl-cffi-gdk-pixbuf.git")))
 
     (format t "~%~%Setup complete!~%")))
 

@@ -1,4 +1,13 @@
-(in-package :sojrn-asdf-system)
+(uiop:define-package :sojrn-asdf-system/exec-hooks
+  (:use :cl :asdf :uiop)
+  (:import-from :sojrn-asdf-system/classes
+                #:sojrn-exec-system)
+  (:import-from :sojrn-asdf-system/cffi-path
+                #+linux #:configure-guix-cffi-path
+                #+windows #:configure-windows-cffi-path)
+  (:documentation "Extension for executable generation."))
+
+(in-package :sojrn-asdf-system/exec-hooks)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

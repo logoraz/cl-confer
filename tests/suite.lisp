@@ -1,4 +1,4 @@
-(uiop:define-package :sojrn-tests/suite
+(uiop:define-package :sojrn/tests/suite
   (:use :cl
         :5am
         :sojrn/lib/syntax
@@ -6,7 +6,7 @@
   (:export )
   (:documentation "Base Test Suite"))
 
-(in-package :sojrn-tests/suite)
+(in-package :sojrn/tests/suite)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
