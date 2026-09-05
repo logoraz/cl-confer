@@ -1,7 +1,7 @@
 (defsystem "sojrn"
   :description "Declarative dotfile/config deployment for Common Lisp."
   :author "Erik P Almaraz <erikalmaraz@fastmail.com>"
-  :license "Apache-2.0"
+  :license "GPL-2.0-only"
   :version (:read-file-form "version.sexp" :at (0 1))
   :defsystem-depends-on ("sojrn-asdf-system")
   :class :sojrn-asdf-system-extension

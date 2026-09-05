@@ -1,7 +1,7 @@
 (defsystem "sojrn-asdf-system"
   :description "sojrn ASDF System Extension."
   :author "Erik P Almaraz"
-  :license "AGPL-3.0-only"
+  :license "GPL-2.0-only"
   :version (:read-file-form "version.sexp" :at (0 1))
   :depends-on ("asdf"
                "cffi"
