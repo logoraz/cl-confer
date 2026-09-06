@@ -22,10 +22,34 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Export to ASDF
+;;; Package-Inferred-System Variants
+;;;
+;;; Each mixes the class above with `ASDF:PACKAGE-INFERRED-SYSTEM' via
+;;; CLOS multiple inheritance thus letting a project pick plain or
+;;; PIS behavior by `:CLASS' by class name alone.
 
-;; Allow for naked :class "sojrn-package-inferred-system" / "sojrn-exec-system"
-;; in .asd definitions (mirrors CFFI-Grovel's :cffi-wrapper-file pattern).
+(defclass sojrn-package-inferred-system
+    (sojrn-asdf-system-extension asdf:package-inferred-system)
+  ()
+  (:documentation "PIS variant of SOJRN-ASDF-SYSTEM-EXTENSION."))
+
+(defclass sojrn-exec-package-inferred-system
+    (sojrn-exec-system asdf:package-inferred-system)
+  ()
+  (:documentation "PIS variant of SOJRN-EXEC-SYSTEM."))
+
+(defclass sojrn-doc-package-inferred-system
+    (sojrn-doc-system asdf:package-inferred-system)
+  ()
+  (:documentation "PIS variant of SOJRN-DOC-SYSTEM."))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Export to ASDF
+;;;
+;;; Allow for naked :class "sojrn-package-inferred-system" / "sojrn-exec-system"
+;;; in .asd definitions (mirrors CFFI-Grovel's :cffi-wrapper-file pattern).
+
 (setf (find-class 'asdf::sojrn-asdf-system-extension)
       (find-class 'sojrn-asdf-system-extension))
 
@@ -34,3 +58,12 @@
 
 (setf (find-class 'asdf::sojrn-doc-system)
       (find-class 'sojrn-doc-system))
+
+(setf (find-class 'asdf::sojrn-package-inferred-system)
+      (find-class 'sojrn-package-inferred-system))
+
+(setf (find-class 'asdf::sojrn-exec-package-inferred-system)
+      (find-class 'sojrn-exec-package-inferred-system))
+
+(setf (find-class 'asdf::sojrn-doc-package-inferred-system)
+      (find-class 'sojrn-doc-package-inferred-system))

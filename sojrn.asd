@@ -47,7 +47,7 @@ tracking.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Register Systems
+;;; Register System Names/Aliases
 
 (register-system-packages "bordeaux-threads"   '(:bt :bt2))
 (register-system-packages "cl-dbi"             '(:dbi))

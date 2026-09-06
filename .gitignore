@@ -7,14 +7,12 @@
 ## libraries
 /libraries/learncl/ocicl/*
 
-## rcfiles
+## files
 /files/ocicl/*
+/files/todo/*
 
 ## tests
 /tests/ocicl/*
 
 ## distribution
 /dist/*
-
-## TODO items
-/todo/*
